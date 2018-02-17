@@ -1,11 +1,11 @@
-# Dealing with the Windows Registry =
+# Dealing with the Windows Registry
 
 
 ## Overview
 
 This class offers methods useful to deal with the Windows Registry without using .NET. It uses `⎕NA` calls to the appropriate Windows API.
 
-`WinReg` is a powerful class that offers plenty of methods. If you just want to read, write and/or delete values from the Windows Registry then the much smaller class [[WinRegSimple]] might be sufficient.
+`WinReg` is a powerful class that offers plenty of methods. If you just want to read, write and/or delete values from the Windows Registry then the much smaller class [WinRegSimple](https://github.com/aplteam/WinRegSimple) might be sufficient.
 
 
 ## Terminology

@@ -1,0 +1,3 @@
+ {r}←ids RunTheseIn ref
+⍝ Run just the specified tests in specified namespace
+ r←ids #.Tester.RunTheseIn ref

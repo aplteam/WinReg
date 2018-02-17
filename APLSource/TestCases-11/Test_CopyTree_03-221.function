@@ -1,0 +1,27 @@
+ R←Test_CopyTree_03(stopFlag batchFlag);rc;⎕TRAP;rk
+⍝ Exercise `CopyTree`; Copy from "foo" to "foo_". (was once a bug)
+⍝ It seems that this test fails not because there is something wrong with WinReg
+⍝ but with the \WindowRects sub key in the Dyalog Registry entries.
+ R←∆Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+
+ rk←'HKCU\Software\APLTree\WinRegTest'
+ ##.WinReg.PutString(rk,'\val1')'1'
+ ##.WinReg.PutString(rk,'\val2')'2'
+ ##.WinReg.PutString(rk,'\val3')'3'
+
+ rc←##.WinReg.CopyTree rk(rk,'_')
+ →GoToTidyUp 0≠rc
+
+ →GoToTidyUp~##.WinReg.DoesKeyExist rk,'_'
+ →GoToTidyUp~##.WinReg.DoesValueExist rk,'_\val1'
+ →GoToTidyUp~##.WinReg.DoesValueExist rk,'_\val2'
+ →GoToTidyUp~##.WinReg.DoesValueExist rk,'_\val3'
+
+ R←∆OK
+
+∆TidyUp:
+ rc←##.WinReg.DeleteSubKeyTree rk
+ ⍎(0≠rc)/'.'
+ rc←##.WinReg.DeleteSubKeyTree rk,'_'
+ ⍎(0≠rc)/'.'

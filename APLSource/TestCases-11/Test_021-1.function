@@ -1,0 +1,13 @@
+ R←Test_021(stopFlag batchFlag);rp;⎕TRAP
+⍝ Exercise `OpenKey`
+ R←∆Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+
+ rp←GetRegPath
+
+⍝ Tests
+ →FailsIf 0≠##.WinReg.OpenKey rp,'\DoesNotExist'
+ →FailsIf 0≠##.WinReg.OpenKey rp,'\\\\'
+ →FailsIf 0≠##.WinReg.OpenKey rp,'\㌎㌏㌐'
+
+ R←∆OK

@@ -1,0 +1,4 @@
+ Match←{
+⍝ "Matches" two vectors ⍺ & ⍵ but does not care about sorting order
+     (∧/⍺∊⍵)∧(∧/⍵∊⍺)
+ }

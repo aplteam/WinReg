@@ -1,0 +1,15 @@
+ R←Test_001(stopFlag batchFlag);⎕TRAP;rp
+⍝ Excercise `GetDyalogRegPath`
+ R←∆Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+
+ rp←##.WinReg.GetDyalogRegPath''
+ →FailsIf 0=##.WinReg.DoesKeyExist rp
+
+ rp←##.WinReg.GetDyalogRegPath ⍬
+ →FailsIf 0=##.WinReg.DoesKeyExist rp
+
+ rp←##.WinReg.GetDyalogRegPath'#'⎕WG'APLVersion'
+ →FailsIf 0=##.WinReg.DoesKeyExist rp
+
+ R←∆OK

@@ -1,0 +1,34 @@
+ R←Test_030(stopFlag batchFlag);path;∆;⎕TRAP;tooBig;tooSmall
+⍝ Exercise `PutValue` & `GetValue` on values too big / too small. Works on 32-bit APL as well as 64-bit
+ R←∆Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ path←GetRegPath
+
+⍝ Preconditions
+ ##.WinReg.DeleteSubKeyTree path             ⍝ Delete any left-overs
+
+ :If ∨/'-64'⍷↑#.APLVersion                  ⍝ 64-bit APL?
+     tooBig←10000+2*63
+     tooSmall←¯10000+-2*63
+ :Else
+     tooBig←10000+2*31
+     tooSmall←¯10000+-2*31
+ :EndIf
+
+ :Trap 11
+    ⍝ * Write a negative value that is too small
+     ##.WinReg.PutValue(path,'val3')tooSmall
+     →FailsIf 1
+ :Else
+     →FailsIf'WinReg error: data too small'≢0⊃⎕DM
+ :EndTrap
+
+ :Trap 11
+    ⍝ * Write too big a value
+     ##.WinReg.PutValue(path,'val3')tooBig
+     →FailsIf 1
+ :Else
+     →FailsIf'WinReg error: data too large'≢0⊃⎕DM
+ :EndTrap
+
+ R←∆OK

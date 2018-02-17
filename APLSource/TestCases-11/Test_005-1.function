@@ -1,0 +1,31 @@
+ R←Test_005(stopFlag batchFlag);path;myReg;length;_;rc;⎕TRAP
+⍝ Exercise `DoesKeyExist`
+ R←∆Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ path←GetRegPath
+
+⍝ Preconditions
+ ##.WinReg.DeleteSubKeyTree path                         ⍝ Delete any left-overs
+
+⍝ Tests...
+   ⍝ * Does exist "" (nonsense)
+ :Trap 11
+     →FailsIf 0≢##.WinReg.DoesKeyExist''
+     →FailsIf 1
+ :Else ⋄ :EndTrap
+
+   ⍝ Create an entry
+ ##.WinReg.PutString((path,'foo')'I am a default!')
+
+   ⍝ * Does exist "path,foo" (yes, as a value, but not as a subkey)
+ →FailsIf 0≢##.WinReg.DoesKeyExist path,'str1'
+
+   ⍝ * Does exist "path" (yes)
+ →FailsIf 1≢##.WinReg.DoesKeyExist path
+ →FailsIf 1≢##.WinReg.DoesKeyExist(¯1↓path)
+
+
+⍝ Tidy up
+ ##.WinReg.DeleteSubKeyTree path
+
+ R←∆OK

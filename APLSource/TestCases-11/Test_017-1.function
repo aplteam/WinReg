@@ -1,0 +1,43 @@
+ R←Test_017(stopFlag batchFlag);path;buffer;allKeys;allData;⎕TRAP
+⍝ Exercise `GetTreeWithValues`
+ R←∆Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ path←GetRegPath
+
+⍝ Preconditions
+ ##.WinReg.DeleteSubKeyTree path         ⍝ Delete any left-overs
+ ##.WinReg.PutString(path,'String1')'hello'
+ ##.WinReg.PutValue(path,'TheRest')42
+ ##.WinReg.PutString(path,'\sub\Agile')'APL'
+ ##.WinReg.PutValue(path,'sub\FirstPrime')2
+ ##.WinReg.PutString(path,'\sub\more\Agile2')'Ruby'
+ ##.WinReg.PutValue(path,'sub\more\NextPrime')3
+ ##.WinReg.PutString(path,'\Other\APL')'Is great'
+ ##.WinReg.PutValue(path,'Other\Version')13
+
+⍝ Tests...
+ buffer←##.WinReg.GetTreeWithValues path
+ →FailsIf~buffer[;0]≡0 1 1 1 2 2 1 2 2 2 3 3
+ allKeys←path∘,¨'' 'String1' 'TheRest' 'sub\' 'sub\Agile' 'sub\FirstPrime' 'sub\more\' 'sub\more\Agile2' 'sub\more\NextPrime' 'Other\' 'Other\APL' 'Other\Version'
+ →FailsIf~buffer[;1]Match allKeys
+ allData←'hello' 42 'Is great' 13 'APL' 2 'Ruby' 3
+ →FailsIf~allData Match buffer[;2]~⊂''
+
+ :Trap 11
+     buffer←##.WinReg.GetTree path,'doesnotexist'
+     →FailsIf 1
+ :Else
+     →FailsIf'WinReg error: key does not exist'≢0⊃⎕DM
+ :EndTrap
+
+ :Trap 11
+     ##.WinReg.GetTree 123
+     →FailsIf 1
+ :Else
+     →FailsIf'WinReg error: right argument is not a key name'≢0⊃⎕DM
+ :EndTrap
+
+⍝ Tidy up
+ ##.WinReg.DeleteSubKeyTree path
+
+ R←∆OK

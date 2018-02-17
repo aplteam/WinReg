@@ -1,0 +1,2 @@
+ r←GetRegPath
+ r←'HKEY_CURRENT_USER\Software\APLTeam_Tests\WinRegTest\'

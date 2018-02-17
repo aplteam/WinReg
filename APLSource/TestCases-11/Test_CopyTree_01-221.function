@@ -1,0 +1,62 @@
+ R←Test_CopyTree_01(stopFlag batchFlag);path;rc;buf;path1;path2;⎕TRAP
+⍝ Exercise `CopyTree`
+ R←∆Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ path←GetRegPath
+ path1←path,'sub1\'
+ path2←path,'sub2\'
+
+⍝ Preconditions
+ ##.WinReg.DeleteSubKeyTree path                                ⍝ Delete any left-overs
+
+ ##.WinReg.PutString(path1,'AAA\')'It''s folder AAA'
+ ##.WinReg.PutString(path1,'AAA\hello')'world'
+ ##.WinReg.PutValue(path1,'AAA\val1')2147483647
+ ##.WinReg.PutValue(path1,'AAA\val2')¯2147483647
+ ##.WinReg.PutValue(path1,'AAA\val3')42
+ ##.WinReg.PutValue(path1,'AAA\val44')¯42
+ ##.WinReg.PutString(path1,'AAA\BB\hello')'Universe'
+ ##.WinReg.PutString(path1,'AAA\BB\')'It''s folder BB'
+
+ buf←##.WinReg.GetString path1,'AAA\'
+ →FailsIf'It''s folder AAA'≢buf
+ buf←##.WinReg.GetString path1,'AAA\hello'
+ →FailsIf'world'≢buf
+ buf←##.WinReg.GetValue path1,'AAA\val1'
+ →FailsIf 2147483647≢buf
+ buf←##.WinReg.GetValue path1,'AAA\val2'
+ →FailsIf ¯2147483647≢buf
+ buf←##.WinReg.GetValue path1,'AAA\val3'
+ →FailsIf 42≢buf
+ buf←##.WinReg.GetValue path1,'AAA\val44'
+ →FailsIf ¯42≢buf
+ buf←##.WinReg.GetString path1,'AAA\BB\'
+ →FailsIf'It''s folder BB'≢buf
+ buf←##.WinReg.GetString path1,'AAA\BB\hello'
+ →FailsIf'Universe'≢buf
+
+⍝ Tests...
+ :Trap 11
+     rc←##.WinReg.CopyTree path1 path1
+     →FailsIf 1
+ :Else
+     →FailsIf'WinReg error: recursive copy failed'≢0⊃⎕DM
+ :EndTrap
+
+ rc←##.WinReg.CopyTree(path1)(path2)
+
+ →FailsIf 1≠##.WinReg.DoesKeyExist path2
+ buf←##.WinReg.GetString path2,'AAA\'
+ →FailsIf'It''s folder AAA'≢buf
+ buf←##.WinReg.GetString path2,'AAA\hello'
+ →FailsIf'world'≢buf
+ buf←##.WinReg.GetString path2,'AAA\BB\'
+ →FailsIf'It''s folder BB'≢buf
+ buf←##.WinReg.GetString path2,'AAA\BB\hello'
+ →FailsIf'Universe'≢buf
+
+⍝ Tidy up
+ rc←##.WinReg.DeleteSubKeyTree path
+ →FailsIf~rc∊##.WinReg.(ERROR_FILE_NOT_FOUND ERROR_SUCCESS)
+
+ R←∆OK

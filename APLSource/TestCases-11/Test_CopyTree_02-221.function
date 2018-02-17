@@ -1,0 +1,25 @@
+ R←Test_CopyTree_02(stopFlag batchFlag);rc;buf;path1;path2;⎕TRAP
+⍝ Exercise `CopyTree`; checks a strange bug that occurred with a particular key only.
+⍝ It seems that this test fails not because there is something wrong with WinReg
+⍝ but with the \WindowRects sub key in the Dyalog Registry entries.
+ R←∆Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+
+ :If 1
+     R←∆Inactive
+ :Else
+     path1←##.WinReg.GetDyalogRegPath'#'⎕WG'APLVersion'
+     path1,←'\WindowRects'
+     path2←GetRegPath,'TestCopyTree\'
+
+   ⍝ Preconditions
+     ##.WinReg.DeleteSubKeyTree path2                               ⍝ Delete any left-overs
+
+     rc←##.WinReg.CopyTree(path1)(path2)
+
+     →FailsIf 0≠rc
+
+   ⍝ Tidy up
+     rc←##.WinReg.DeleteSubKeyTree path2
+     R←∆OK
+ :EndIf

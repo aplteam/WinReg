@@ -1,0 +1,13 @@
+ R←Test_020(stopFlag batchFlag);⎕TRAP
+⍝ Exercise `ListVars` & `ListReg`
+ R←∆Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+
+⍝ Tests
+ →FailsIf 2≠⍴⍴##.WinReg.ListError
+ →FailsIf 0=0⊃⍴##.WinReg.ListError
+
+ →FailsIf 2≠⍴⍴##.WinReg.ListReg
+ →FailsIf 0=0⊃⍴##.WinReg.ListReg
+
+ R←∆OK

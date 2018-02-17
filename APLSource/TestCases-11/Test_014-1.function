@@ -1,0 +1,43 @@
+ R←Test_014(stopFlag batchFlag);path;myReg;length;_;∆;⎕TRAP
+⍝ Exercise `PutString` & `GetString` on nested vectors
+ R←∆Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ path←GetRegPath
+
+⍝ Preconditions
+ ##.WinReg.DeleteSubKeyTree path                         ⍝ Delete any left-overs
+
+⍝ Tests...
+   ⍝ Write a vector of strings and read them back
+ ∆←⊂'APL Team Ltd'
+ ∆,←⊂'http://aplteam.com'
+ ∆,←⊂'kai@aplteam.com'
+ ∆,←⊂'Stevenage'
+ ∆,←⊂'United Kingdom'
+ ##.WinReg.PutString(path,'vtv')∆
+   ⍝ Read the data back
+ →FailsIf ∆≢##.WinReg.GetString path,'vtv'
+
+   ⍝ Write a simple string as REG_MULTI_SZ
+ ##.WinReg.REG_MULTI_SZ ##.WinReg.PutString(path,'vtv2')'Kai Jäger'
+   ⍝ Read the data back
+ →FailsIf(,⊂'Kai Jäger')≢##.WinReg.GetString path,'vtv2'
+
+   ⍝ Write three nested vectors and read them back
+ ##.WinReg.REG_MULTI_SZ ##.WinReg.PutString(path,'My first eample')(50⍴'George' 'W.' 'Bush')
+ ##.WinReg.REG_MULTI_SZ ##.WinReg.PutString(path,'This is the second one')(1250⍴'Barak' 'Obama')
+ ##.WinReg.REG_MULTI_SZ ##.WinReg.PutString(path,'And the third one')(20⍴'Bill' 'Clinton')
+   ⍝ Read the data back
+ →FailsIf(50⍴'George' 'W.' 'Bush')≢##.WinReg.GetString path,'My first eample'
+ →FailsIf(1250⍴'Barak' 'Obama')≢##.WinReg.GetString path,'This is the second one'
+ →FailsIf(20⍴'Bill' 'Clinton')≢##.WinReg.GetString path,'And the third one'
+
+   ⍝ Write an empty string as REG_MULTI_SZ
+ ##.WinReg.REG_MULTI_SZ ##.WinReg.PutString(path,'vtv9')''
+   ⍝ Read the data back
+ →FailsIf(0⍴⊂'')≢##.WinReg.GetString path,'vtv9'
+
+⍝ Tidy up
+ ##.WinReg.DeleteSubKeyTree path
+
+ R←∆OK

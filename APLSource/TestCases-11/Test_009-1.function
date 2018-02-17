@@ -1,0 +1,45 @@
+ R←Test_009(stopFlag batchFlag);path;data;data2;⎕TRAP
+⍝ Exercise `GetAllNamesAndValues`
+ R←∆Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ path←GetRegPath
+
+⍝ Preconditions
+ ##.WinReg.DeleteSubKeyTree path         ⍝ Delete any left-overs
+
+ ##.WinReg.PutString(path,'String1')'hello'
+ ##.WinReg.PutString(path,'Second')'universe'
+ ##.WinReg.PutString(path,'VeryLong')((5000⍴'universe '),' END')
+ ##.WinReg.PutValue(path,'TheRest')42
+ ##.WinReg.PutValue(path,'Biggest')2147483647
+ ##.WinReg.PutValue(path,'Smallest')¯2147483647
+ ##.WinReg.PutString(path,'Nested1')('one' 'two' 'three' 'four' 'five' 'six' 'seven' 'eight')
+ ##.WinReg.PutString(path,'Nested2')('January' 'February' 'March' 'May' 'June' 'July' 'August' 'September' 'October' 'November' 'December')
+
+ ##.WinReg.PutString(path,'\sub\Agile')'APL'
+ ##.WinReg.PutValue(path,'sub\FirstPrime')2
+
+⍝ Tests...
+ data←##.WinReg.GetAllNamesAndValues path
+ data2←''
+ data2,←⊂'String1' 'hello'
+ data2,←⊂'Second' 'universe'
+ data2,←⊂'VeryLong'((5000⍴'universe '),' END')
+ data2,←⊂'TheRest' 42
+ data2,←⊂'Biggest' 2147483647
+ data2,←⊂'Smallest' ¯2147483647
+ data2,←⊂'Nested1'('one' 'two' 'three' 'four' 'five' 'six' 'seven' 'eight')
+ data2,←⊂'Nested2'('January' 'February' 'March' 'May' 'June' 'July' 'August' 'September' 'October' 'November' 'December')
+ →FailsIf data[;0 1]≢⊃data2
+
+ :Trap 11
+     ##.WinReg.GetAllNamesAndValues 123
+     →0
+ :Else
+     →FailsIf'WinReg error: ERROR_INVALID_HANDLE'≢0⊃⎕DM
+ :EndTrap
+
+⍝ Tidy up
+ ##.WinReg.DeleteSubKeyTree path
+
+ R←∆OK

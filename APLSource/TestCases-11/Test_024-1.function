@@ -1,0 +1,38 @@
+ R←Test_024(stopFlag batchFlag);path;⎕TRAP
+⍝ Exercise error messages with `GetString`
+ R←∆Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ path←GetRegPath
+
+⍝ Preconditions
+ ##.WinReg.DeleteSubKeyTree path                         ⍝ Delete any left-overs
+
+⍝ Tests..,
+   ⍝ Write string "%WinDir%" and read it back (must remain unchanged!)
+ ##.WinReg.PutString(path,'str1_')'AnyString'
+
+ :Trap 11
+     ##.WinReg.GetString 3⍴⊂path,'str1_'
+     →0
+ :Else
+     →FailsIf'WinReg error: invalid right argument'≢0⊃⎕DM
+ :EndTrap
+
+ :Trap 11
+     ##.WinReg.GetString''
+     →0
+ :Else
+     →FailsIf'WinReg error: right argument must not be empty'≢0⊃⎕DM
+ :EndTrap
+
+ :Trap 11
+     ##.WinReg.GetString 123
+     →0
+ :Else
+     →FailsIf'WinReg error: invalid right argument'≢0⊃⎕DM
+ :EndTrap
+
+⍝ Tidy up
+ ##.WinReg.DeleteSubKeyTree path
+
+ R←∆OK

@@ -40,7 +40,7 @@
 
     ∇ R←Version
       :Access Public Shared
-      R←(Last⍕⎕THIS)'3.0.0' '2018-02-16'
+      R←(Last⍕⎕THIS)'3.0.0.1' '2018-02-16'
     ∇
 
     ∇ History

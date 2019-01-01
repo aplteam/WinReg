@@ -48,7 +48,7 @@
       ⍝ * 3.0.0
       ⍝   * First version after the conversion from the APL wiki to GitHub.
       ⍝\\
-      ⍝ For information regarding older versions see <https://github.com/aplteam/Meddy/releases>
+      ⍝ For information regarding older versions see <https://github.com/aplteam/WinReg/releases>
     ∇
 
   ⍝ All data types, including those not supported yet

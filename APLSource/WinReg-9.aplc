@@ -47,19 +47,8 @@
       :Access Public Shared
       ⍝ * 3.0.0
       ⍝   * First version after the conversion from the APL wiki to GitHub.
-      ⍝ * 2.9.0
-      ⍝   * Bug fix: `GetAllSubKeyNames` closed handle twice.
-      ⍝ * 2.9.0
-      ⍝   * Method `History` introduced.
-      ⍝   * `WinReg` is now managed by acre 3.
-      ⍝ * 2.8.1:
-      ⍝   * Bug fix in `CopyTree`.
-      ⍝ * 2.8.0:
-      ⍝   * `GetTreeWithValues` now tolerates when a key has data types `WinReg` does not support.
-      ⍝     For this a column (third) was added that reports error messages and is empty otherwise.
-      ⍝   * Support for `REG_QWORD` was added.
-      ⍝   * Bug fixes:
-      ⍝     * Unsupported data types could crash WinReg.
+      ⍝\\
+      ⍝ For information regarding older versions see <https://github.com/aplteam/Meddy/releases>
     ∇
 
   ⍝ All data types, including those not supported yet

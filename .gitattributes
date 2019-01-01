@@ -1,11 +1,18 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
-*.function linguist-language=apl
-*.operator linguist-language=apl
-*.class linguist-language=apl
-*.script linguist-language=apl
-*.charstring linguist-language=apl
-*.charList linguist-language=apl
+*.aplf linguist-language=apl
+*.aplo linguist-language=apl
+*.aplc linguist-language=apl
+*.apln linguist-language=apl
+*.apli linguist-language=apl
 *.dws linguist-language=apl
 *.dyapp linguist-language=apl
+
+Dist/ linguist-vendored=true
+CSS/ linguist-vendored=true
+Docs/ linguist-vendored=true
+Testcases/ linguist-vendored=true
+*.js linguist-vendored=true
+*.html/ linguist-vendored=true
+*.iss/ linguist-vendored=true

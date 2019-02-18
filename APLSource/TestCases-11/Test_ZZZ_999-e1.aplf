@@ -1,5 +1,5 @@
- R←Test_ZZZ_999(stopFlag batchFlag);v;n;d;xml;rf;f1;f2;f3;⎕TRAP
- ⍝ Check the "Version" function and publish.config and history.txt
+ R←Test_ZZZ_999(stopFlag batchFlag);v;n;d;xml;rf;f1;f2;⎕TRAP
+⍝ Check the "Version" function and publish.config.
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←∆Failed
 
@@ -7,6 +7,7 @@
 
 ⍝ First we check whether "Version" returns a valid result:
  (n v d)←rf.Version
+ v←{⍵/⍨3>+\'.'=⍵}v      ⍝ Remove build ID
  f1←~5≤⍴v
  f1∨←2≠'.'+.=v
  f1∨←~∧/⎕D∊⍨v~'.'
@@ -14,14 +15,11 @@
  f1∨←10≠⍴d
  f1∨←d[4 7+⎕IO]∨.≠'-'
  f1∨←~∧/⎕D∊⍨d~'-'
+
 ⍝ publish.config must be in line with what "Version" returns of course:
  xml←⎕XML'flat'#.APLTreeUtils.ReadUtf8File'publish.config'
  f2←v≢(2+⎕IO)⊃xml[xml[;1+⎕IO]⍳⊂'version';]
  f2∨←d≢(2+⎕IO)⊃xml[xml[;1+⎕IO]⍳⊂'date';]
-
-⍝ history.txt might be useful during development but must not exist
-⍝ when the project is checked in:
- f3←⎕NEXISTS'history.txt'
 
  :If f1
      ⎕←'Result of the "Version" function is invalid.'
@@ -29,10 +27,7 @@
  :If f2
      ⎕←'The contents of "publish.config" is not in line with "Version".'
  :EndIf
- :If f3
-     ⎕←'There is a file "history.txt" but there shouldn''t.'
- :EndIf
 
- →FailsIf f1∨f2∨f3
+ →FailsIf f1∨f2
 
  R←∆OK

@@ -36,17 +36,17 @@
     ⎕ML←3
     ⎕IO←1
 
-    :Include ##.APLTreeUtils
+    :Include APLTreeUtils
 
     ∇ R←Version
       :Access Public Shared
-      R←(Last⍕⎕THIS)'3.0.0.3' '2018-02-16'
+      R←(Last⍕⎕THIS)'3.0.1.4' '2019-02-18'
     ∇
 
     ∇ History
       :Access Public Shared
-      ⍝ * 3.0.0
-      ⍝   * First version after the conversion from the APL wiki to GitHub.
+      ⍝ * 3.0.1
+      ⍝   * :Include APLTreeUtils fixed.
       ⍝\\
       ⍝ For information regarding older versions see <https://github.com/aplteam/WinReg/releases>
     ∇

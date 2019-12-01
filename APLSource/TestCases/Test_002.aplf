@@ -1,0 +1,31 @@
+ R←Test_002(stopFlag batchFlag);path;⎕TRAP
+⍝ Excercise `DeleteSubKey`
+ R←T._Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ path←GetRegPath
+
+⍝ Preconditions
+ ##.WinReg.DeleteSubKeyTree path         ⍝ Delete any left-overs
+
+ ##.WinReg.PutString(path,'str1')'hello'
+ ##.WinReg.PutString(path,'str2')'universe'
+ ##.WinReg.PutValue(path,'val1')42
+
+ ##.WinReg.PutString(path,'sub\str1')'APL'
+ ##.WinReg.PutValue(path,'sub\val1')¯42
+
+ →T.FailsIf 3≠0⊃⍴##.WinReg.GetAllValues path
+
+ →T.FailsIf 5≠##.WinReg.DeleteSubKey path  ⍝ Must fail because it has a subkey
+
+ →T.FailsIf 0≠##.WinReg.DeleteSubKey path,'sub'
+ →T.FailsIf 0≠##.WinReg.DeleteSubKey path
+
+ →T.FailsIf 0≠##.WinReg.DeleteSubKey path
+
+ →T.FailsIf 0≠0⊃⍴##.WinReg.GetAllValues path
+
+⍝ Tidy up
+ ##.WinReg.DeleteSubKeyTree path
+
+ R←T._OK

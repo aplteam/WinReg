@@ -1,4 +1,0 @@
- {r}←Run;ref
-⍝ Run all test cases
- ref←{9=#.⎕NC ⍵:# ⋄ 9=(↑⎕RSI).⎕NC ⍵:↑⎕RSI ⋄ 9=##.⎕NC ⍵:## ⋄ 'Cannot find "Tester"'⎕SIGNAL 6}'Tester'
- r←ref.Tester.Run ⎕THIS

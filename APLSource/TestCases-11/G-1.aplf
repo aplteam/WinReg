@@ -1,8 +1,0 @@
- r←G;⎕IO
-⍝ Prints all groups to the session.
- ⎕IO←0
- r←↓'Test_'{⍵⌿⍨((⍴⍺)↑[1]⍵)∧.=⍺}'T'⎕NL 3
- :If ~0∊⍴r←(2='_'+.=⍉{⎕ML←1 ⋄ ↑⍵}r)⌿r
- :AndIf ~0∊⍴r←{⎕ML←1 ⋄ ↑⍵}∪{⍵↑⍨⍵⍳'_'}¨{⍵↓⍨1+⍵⍳'_'}¨r
-     r←r[⍋#.APLTreeUtils.Lowercase r;]
- :EndIf

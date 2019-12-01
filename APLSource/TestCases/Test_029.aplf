@@ -1,0 +1,19 @@
+ R←Test_029(stopFlag batchFlag);path;∆;⎕TRAP;buff;value
+⍝ Exercise `PutValue` & `GetValue` on a REG_QWORD if it's a 64-bit APL and  REG_DWORD otherwise
+ R←T._Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ path←GetRegPath
+
+⍝ Preconditions
+ ##.WinReg.DeleteSubKeyTree path             ⍝ Delete any left-overs
+
+ :If ∨/'-64'⍷↑#.APLVersion                  ⍝ 64-bit APL?
+     value←2*36                             ⍝ Generate a really large QWORD
+ :Else                                      ⍝ No, it's just 32-bit
+     value←2*30                             ⍝ Generate a really large DWORD
+ :EndIf
+ ##.WinReg.PutValue(path,'\BIGGG')value
+ buff←##.WinReg.GetValue path,'\BIGGG'
+ →T.PassesIf buff≡value
+
+ R←T._OK

@@ -1,0 +1,64 @@
+ R←Test_028(stopFlag batchFlag);path;∆;⎕TRAP
+⍝ Exercise `PutBinary` & `GetBinary`
+ R←T._Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ path←GetRegPath
+
+⍝ Preconditions
+ ##.WinReg.DeleteSubKeyTree path                         ⍝ Delete any left-overs
+
+⍝ Tests...
+   ⍝ Write a number and read it back
+ ##.WinReg.PutBinary(path,'\myBin')(∆←,123)
+   ⍝ Read the data back
+ →T.FailsIf ∆≢##.WinReg.GetValue path,'\myBin'
+
+ ##.WinReg.PutBinary(path,'\myMaxVal')(∆←,127)
+   ⍝ Read the data back
+ →T.FailsIf ∆≢##.WinReg.GetValue path,'\myMaxVal'
+
+ ##.WinReg.PutBinary(path,'\myMinVal')(∆←,¯128)
+   ⍝ Read the data back
+ →T.FailsIf ∆≢##.WinReg.GetValue path,'\myMinVal'
+
+   ⍝ Write invalid data
+
+ :Trap 11
+     ##.WinReg.PutBinary(path,'\tooBig')128
+     →0
+ :Else
+     →T.FailsIf'WinReg error: invalid data for "Binary"'≢0⊃⎕DM
+ :EndTrap
+
+ :Trap 11
+     ##.WinReg.PutBinary(path,'\tooSmall')¯129
+     →0
+ :Else
+     →T.FailsIf'WinReg error: invalid data for "Binary"'≢0⊃⎕DM
+ :EndTrap
+
+ :Trap 11
+     ##.WinReg.PutBinary(path,'number')(⌊/⍬)
+     →0
+ :Else
+     →T.FailsIf'WinReg error: invalid data for "Binary"'≢0⊃⎕DM
+ :EndTrap
+
+ :Trap 11
+     ##.WinReg.PutBinary(path,'number')(⌈/⍬)
+     →0
+ :Else
+     →T.FailsIf'WinReg error: invalid data for "Binary"'≢0⊃⎕DM
+ :EndTrap
+
+ :Trap 11
+     ##.WinReg.PutBinary(path)(123)
+     →0
+ :Else
+     →T.FailsIf'WinReg error: default values must be of type REG_SZ (string)'≢0⊃⎕DM
+ :EndTrap
+
+⍝ Tidy up
+ ##.WinReg.DeleteSubKeyTree path
+
+ R←T._OK

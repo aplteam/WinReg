@@ -1,4 +1,4 @@
- R←Test_019(stopFlag batchFlag);path;rc;buf;path2;⎕TRAP
+ R←Test_019(stopFlag batchFlag);path;rc;buf;path2;⎕TRAP;qdmx
 ⍝ Exercise `KeyInfo`
  R←T._Failed
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
@@ -27,7 +27,8 @@
      ##.WinReg.KeyInfo 123
      →0
  :Else
-     →T.FailsIf'WinReg error: ERROR_INVALID_HANDLE'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: ERROR_INVALID_HANDLE'≢qdmx.EM
  :EndTrap
 
 ⍝ Tidy up

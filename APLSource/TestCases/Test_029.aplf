@@ -5,9 +5,9 @@
  path←GetRegPath
 
 ⍝ Preconditions
- ##.WinReg.DeleteSubKeyTree path             ⍝ Delete any left-overs
+ ##.WinReg.DeleteSubKeyTree path            ⍝ Delete any left-overs
 
- :If ∨/'-64'⍷↑#.APLVersion                  ⍝ 64-bit APL?
+ :If ∨/'-64'⍷⊃#.APLVersion                  ⍝ 64-bit APL?
      value←2*36                             ⍝ Generate a really large QWORD
  :Else                                      ⍝ No, it's just 32-bit
      value←2*30                             ⍝ Generate a really large DWORD

@@ -38,7 +38,7 @@
 
  buf←##.WinReg.GetAllValues handle1
  →T.FailsIf 4 3≢⍴buf
- →T.FailsIf~buf[;0]Match'str1' 'val1' 'binary1' '\'
+ →T.FailsIf~buf[;1]Match'str1' 'val1' 'binary1' '\'
 
  buf←##.WinReg.DoesValueExist handle1'no'
  →T.FailsIf(,buf)≢,0

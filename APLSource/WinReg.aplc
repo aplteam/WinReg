@@ -1,52 +1,49 @@
 :Class WinReg
-⍝ Offers shared methods useful to deal with the Windows Registry.
-⍝
+⍝ Offers shared methods useful to deal with the Windows Registry.\\
 ⍝ Note that the Window Registry contains data saved under a kind
 ⍝ of "path". Such a path consists of:
-⍝
 ⍝ * A so-called "Main Key" like HKEY_CURRENT_USER (or short HKCU)
 ⍝ * A so called sub key (which is displayed by RegEdt32 as a folder)
 ⍝   like "HKEY_CURRENT_USER\Software\Dyalog\Dyalog APL/W 12.0"
-⍝ * A so-called value like "maxws"
-⍝
+⍝ * A so-called value like "maxws"\\
 ⍝ These terms might look strange but they are used by this class for
-⍝ the sake of consistency with the Microsoft documentation.
-⍝
+⍝ the sake of consistency with the Microsoft documentation.\\
 ⍝ `WinReg` is also able to read and write default values of a
-⍝ sub-key. For that you have to add a `\` to the end of the sub-key.
-⍝
+⍝ sub-key. For that you have to add a `\` to the end of the sub-key.\\
 ⍝ This class as such does not come with any limitations
 ⍝ regarding the amount of data (REG_SZ, REG_MULTI, REG_EXPAND_SZ,
 ⍝ REG_BINARY) you can write. However, Microsoft suggests not to save
 ⍝ anything bigger than 2048 bytes (Unicode 4096?!) to avoid performance
 ⍝ penalties. One should save larger amounts of data in a file and
-⍝ save the filename rather then the data in the Registry.
-⍝
+⍝ save the filename rather then the data in the Registry.\\
 ⍝ `WinReg` supports only a limited number of data types for writing:
-⍝
 ⍝ * REG_SZ (Strings)
 ⍝ * REG_EXPAND_SZ (STRINGS where variables between % get expanded on read)
 ⍝ * REG_MULTI_SZ (Vectors of strings)
 ⍝ * REG_BINARY (Binary data)
-⍝ * REG_DWORD (32-bit signed integer)
-⍝
-⍝ Author: Kai Jaeger ⋄ APL Team Ltd ⋄ http://aplteam.com
-⍝
-⍝ Homepage: <http://aplwiki.com/WinReg>
-    ⎕ML←3
-    ⎕IO←1
+⍝ * REG_DWORD (32-bit signed integer)\\
+⍝ Author: Kai Jaeger ⋄ APL Team Ltd ⋄ http://aplteam.com\\
+⍝ Homepage: <https://github.com/aplteam/WinReg>
 
-    :Include APLTreeUtils
+    ⎕ML←1 ⋄ ⎕IO←1
 
     ∇ R←Version
       :Access Public Shared
-      R←(Last⍕⎕THIS)'4.0.0.6' '2020-03-22'
+      R←'WinReg' '5.0.1.14' '2020-12-17'
     ∇
 
     ∇ History
       :Access Public Shared
-      ⍝ * 4.0.0
-      ⍝   * BREAKIN CHANGE: file extension is now .aplc rather than .dyalog
+      ⍝ * 5.0.1
+      ⍝   * Naming problem fixed caused by move to `APLTreeUtils2`
+      ⍝ * 5.0.0
+      ⍝   * BREAKIN CHANGES:
+      ⍝     * Requires the class `APLTreeUtils2`
+      ⍝     * Requires Dyalog 18.0 or better
+      ⍝     * Is delivered as a Tatin package
+      ⍝   * Internal changes
+      ⍝     * Does not `:Include APLTreeUtils` anymore
+      ⍝     * Uses `⎕ML←1`
       ⍝\\
       ⍝ For information regarding older versions see <https://github.com/aplteam/WinReg/releases>
     ∇
@@ -115,13 +112,13 @@
     ⍝ * A vector of length 2 with a handle to the sub-key in [1] and a value name in [2].
       default←{0<⎕NC ⍵:⍎⍵ ⋄ ''}'default'
       r←default
-      'WinReg error: invalid right argument'⎕SIGNAL 11/⍨(~0 1∊⍨≡y)∧2≠⍴,y
-      'WinReg error: right argument must not be empty'⎕SIGNAL 11/⍨0∊⍴y
-      'WinReg error: invalid right argument'⎕SIGNAL 11/⍨(~(⎕DR y)∊80 82)∧2≠⍴,y
-      :If (2=⍴y)∧(0=1↑0⍴1⊃,y)∧(' '=1↑0⍴2⊃,y)
+      'WinReg error: invalid right argument'⎕SIGNAL 11/⍨(~0 1∊⍨≡y)∧2≠≢y
+      'WinReg error: right argument must not be empty'⎕SIGNAL 11/⍨0=≢y
+      'WinReg error: invalid right argument'⎕SIGNAL 11/⍨(~(⎕DR y)∊80 82)∧2≠≢y
+      :If (2=≢y)∧(0=1↑0⍴1⊃,y)∧(' '=1↑0⍴2⊃,y)
           yIsHandle←1
           (handle value)←y
-      :ElseIf 1=≡y
+      :ElseIf 1=|≡y
           yIsHandle←0
           path←y
           (subKey value)←{⍵{((-⍵)↓⍺)((-⍵-1)↑⍺)}'\'⍳⍨⌽⍵}path
@@ -165,7 +162,7 @@
           errMsg←'WinReg error: ',ConvertErrorCode rc
       :EndIf
       Close(~yIsHandle)/handle
-      errMsg ⎕SIGNAL 11/⍨~0∊⍴errMsg
+      errMsg ⎕SIGNAL 11/⍨0≠≢errMsg
     ∇
 
     ∇ r←ListError
@@ -197,14 +194,14 @@
       default←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'default'
       r←default
       yIsHandle←0
-      'WinReg error: invalid right argument'⎕SIGNAL 11/⍨(~0 1∊⍨≡y)∧2≠⍴,y
-      'WinReg error: right argument must not be empty'⎕SIGNAL 11/⍨0∊⍴y
-      'WinReg error: invalid right argument'⎕SIGNAL 11/⍨(~(⎕DR y)∊80 82)∧2≠⍴,y
-      :If 2=⍴,y
+      'WinReg error: invalid right argument'⎕SIGNAL 11/⍨(~0 1∊⍨≡y)∧2≠≢y
+      'WinReg error: right argument must not be empty'⎕SIGNAL 11/⍨0=≢y
+      'WinReg error: invalid right argument'⎕SIGNAL 11/⍨(~(⎕DR y)∊80 82)∧2≠≢y
+      :If 2=≢y
       :AndIf yIsHandle←0=1↑0⍴1⊃y          ⍝ Is the first item possibly a handle?
           (handle value)←y
       :Else
-          (subKey value)←SplitPath y
+          (subKey value)←##.APLTreeUtils2.SplitPath y
           :If ~DoesKeyExist subKey ⋄ :Return ⋄ :EndIf
           handle←OpenKey subKey
       :EndIf
@@ -246,7 +243,7 @@
           r←HandleDataType type length data
       :EndIf
       Close(~yIsHandle)/handle
-      errMsg ⎕SIGNAL 11/⍨~0∊⍴errMsg
+      errMsg ⎕SIGNAL 11/⍨0≠≢errMsg
     ∇
 
     ∇ {r}←{type}PutString y;yIsHandle;path;data;value;subKey;handle;rc
@@ -266,7 +263,7 @@
     ⍝ the default is "REG_MULTI_SZ.
     ⍝
     ⍝ You can set "type" to one of: REG_SZ, REG_EXPAND_SZ, REG_MULTI_SZ.
-      :Select ↑⍴,y
+      :Select ⊃≢y
       :Case 2
           yIsHandle←0
           (path data)←y
@@ -284,12 +281,12 @@
       'WinReg error: invalid "value"'⎕SIGNAL 11/⍨' '≠1↑0⍴value
       type←data{2=⎕NC ⍵:⍎⍵ ⋄ (1+0 1∊⍨≡⍺)⊃REG_MULTI_SZ REG_SZ}'type'
       :If type=REG_MULTI_SZ
-          'WinReg error: invalid "data"'⎕SIGNAL 11/⍨0∊{↑' '=1↑0⍴⍵}¨data
+          'WinReg error: invalid "data"'⎕SIGNAL 11/⍨0∊{⊃' '=1↑0⍴⍵}¨data
       :Else
           'WinReg error: invalid "data"'⎕SIGNAL 11/⍨' '≠1↑0⍴data
       :EndIf
       :If type=REG_MULTI_SZ
-          data←{0 1∊⍨≡⍵:⍵ ⋄ 0∊⍴⍵:'' ⋄ (↑,/⍵,¨NULL),NULL}data
+          data←{0 1∊⍨≡⍵:⍵ ⋄ 0=≢⍵:'' ⋄ (⊃,/⍵,¨NULL),NULL}data
       :Else
           data←data,{NULL=⍵:'' ⋄ NULL}¯1↑data
       :EndIf
@@ -297,9 +294,9 @@
       '∆RegSetValueEx'⎕NA'I ADVAPI32.dll.C32|RegSetValueEx* I <0T I I <T[] I'
       :If yIsHandle
       :AndIf (,'\')≡,value
-          rc←∆RegSetValueEx handle'' 0 type data(2×↑⍴data)
+          rc←∆RegSetValueEx handle'' 0 type data(2×≢data)
       :Else
-          rc←∆RegSetValueEx handle value 0 type data(2×↑⍴data)
+          rc←∆RegSetValueEx handle value 0 type data(2×≢data)
       :EndIf
       ('WinReg error! ',ConvertErrorCode rc)⎕SIGNAL 11/⍨ERROR_SUCCESS≠rc
       Close(~yIsHandle)/handle
@@ -314,12 +311,12 @@
     ⍝ default value.\\
     ⍝ If path ends with a backslash, an exception is thrown.\\
     ⍝ Note that you can only save REG_DWORDs with PutValue, that is 32-bit integers.
-      :Select ↑⍴,y
+      :Select ⊃≢y
       :Case 2
           yIsHandle←0
           (path data)←y
           'WinReg error: default values must be of type REG_SZ (string)'⎕SIGNAL 11/⍨'\'=¯1↑path
-          (subKey value)←SplitPath path
+          (subKey value)←##.APLTreeUtils2.SplitPath path
           subKey←CheckPath subKey
           handle←OpenAndCreateKey subKey
       :Case 3
@@ -330,7 +327,7 @@
           'WinReg error: invalid right argument'⎕SIGNAL 11
       :EndSelect
       data←,data
-      :If (1≠≡data)∨1≠⍴data←,data
+      :If (1≠≡data)∨1≠≢data←,data
           Close(~yIsHandle)/handle
           'WinReg error: data has invalid depth/shape'⎕SIGNAL 11
       :EndIf
@@ -380,12 +377,12 @@
     ⍝ If path ends with a backslash, an exception is thrown.
     ⍝
     ⍝ Note that for binary you must specify Integer (¯128 to 128).
-      :Select ↑⍴,y
+      :Select ⊃≢y
       :Case 2
           yIsHandle←0
           (path data)←y
           'WinReg error: default values must be of type REG_SZ (string)'⎕SIGNAL 11/⍨'\'=¯1↑path
-          (subKey value)←SplitPath path
+          (subKey value)←##.APLTreeUtils2.SplitPath path
           subKey←CheckPath subKey
           handle←OpenAndCreateKey subKey
       :Case 3
@@ -399,7 +396,7 @@
       data←,data
       'WinReg error: invalid data for "Binary"'⎕SIGNAL 11/⍨∨/~data∊¯129+⍳256
       '∆RegSetValueEx'⎕NA'I ADVAPI32.dll.C32|RegSetValueEx* I <0T I I <I1[] I'
-      _←∆RegSetValueEx handle value 0 REG_BINARY data(↑⍴data)
+      _←∆RegSetValueEx handle value 0 REG_BINARY data(≢data)
       Close(~yIsHandle)/handle
       r←⍬
     ∇
@@ -416,7 +413,7 @@
     ⍝ * A handle
     ⍝ * A path (sub key)
       :Access Public Shared
-      :If (0=1↑0⍴y)∧1=⍴,y       ⍝ Is it a handle?
+      :If (0=1↑0⍴y)∧1=≢y       ⍝ Is it a handle?
           yIsHandle←1
           handle←y
       :ElseIf (' '=1↑0⍴y)∧1=≡y  ⍝ Is it a path
@@ -451,7 +448,7 @@
       r←GetAllNamesAndValues y
     ∇
 
-    ∇ r←GetAllNamesAndValues y;names;handle;noof;i;yIsHandle
+    ∇ r←GetAllNamesAndValues y;names;handle;noof;i;yIsHandle;qdmx
     ⍝ This method gets all values for a given subkey.
     ⍝
     ⍝ `r` is a matrix with:
@@ -464,7 +461,7 @@
     ⍝ * A string representing a path (sub key)
     ⍝ * A handle
       :Access Public Shared
-      :If (0=1↑0⍴y)∧1=⍴,y       ⍝ Is it a handle?
+      :If (0=1↑0⍴y)∧1=≢y       ⍝ Is it a handle?
           yIsHandle←1
           handle←y
       :ElseIf (' '=1↑0⍴y)∧1=≡y  ⍝ Is it a path
@@ -477,18 +474,19 @@
           r←0 3⍴''
           :Return
       :EndIf
-      noof←⍴names←GetAllValueNames handle
+      noof←≢names←GetAllValueNames handle
       r←(noof,3)⍴''
-      :If ~0∊⍴r
+      :If 0≠≢r
           r[;1]←names
-          :For i :In ⍳⍴names
+          :For i :In ⍳≢names
               :Trap 11
                   r[i;2]←⊂GetValue handle(i⊃names)
               :Else
-                  :If ∨/'WinReg error: unsupported data type'⍷↑⎕DM
-                      r[i;3]←⊂'Failed due to unsupported data type: ',{dmb ⍵↓⍨1++/2>+\⍵=':'}↑⎕DM
+                  qdmx←⎕DMX
+                  :If ∨/'WinReg error: unsupported data type'⍷qdmx.EM
+                      r[i;3]←⊂'Failed due to unsupported data type: ',{##.APLTreeUtils2.DMB ⍵↓⍨1++/2>+\⍵=':'}qdmx.EM
                   :Else
-                      r[i;3]←⊂(↑⎕DM),'; rc=',⍕⎕EN
+                      r[i;3]←⊂qdmx.EM,'; rc=',⍕qdmx.EN
                   :EndIf
               :EndTrap
           :EndFor
@@ -512,7 +510,7 @@
     ⍝ Note that for a default value a "\\" is returned as value name.
       :Access Public Shared
       verbose←{2=⎕NC ⍵:'verbose'≡⍎⍵ ⋄ 0}'verbose'
-      :If (0=1↑0⍴y)∧1=⍴,y       ⍝ Is it a handle?
+      :If (0=1↑0⍴y)∧1=≢y       ⍝ Is it a handle?
           yIsHandle←1
           handle←y
       :ElseIf (' '=1↑0⍴y)∧1=≡y  ⍝ Is it a path
@@ -547,7 +545,7 @@
     ∇ r←GetAllSubKeyNames y;yIsHandle;handle;∆RegEnumKey;flag;rc;i;bufSize;name;length
     ⍝ This method returns a vector of strings with the namesof all sub keys for a given key.
       :Access Public Shared
-      :If (0=1↑0⍴y)∧1=⍴,y       ⍝ Is it a handle?
+      :If (0=1↑0⍴y)∧1=≢y       ⍝ Is it a handle?
           yIsHandle←1
           handle←y
       :ElseIf (' '=1↑0⍴y)∧1=≡y  ⍝ Is it a path
@@ -584,7 +582,7 @@
     ⍝ See `GetTreeWithValues` if you need the data of the values, too.
       :Access Public Shared
       depth←{0=⎕NC ⍵:0 ⋄ ⍎⍵}'depth'
-      :If (0=1↑0⍴key)∧1=⍴,key                   ⍝ Is it a valid handle?
+      :If (0=1↑0⍴key)∧1=≢key                   ⍝ Is it a valid handle?
           11 ⎕SIGNAL⍨'WinReg error: right argument is not a key name'
       :ElseIf (' '=1↑0⍴key)∧1=≡key              ⍝ Is it a path?
           handle←OpenKey key
@@ -595,12 +593,12 @@
           11 ⎕SIGNAL⍨'WinReg error: key does not exist'
       :Else
           r←1 2⍴depth(key,('\'≠¯1↑key)/'\')
-          :If ~0∊⍴allValues←GetAllValueNames handle
+          :If 0≠≢allValues←GetAllValueNames handle
               r⍪←(1+depth),[1.5](⊂key,('\'≠¯1↑key)/'\'),¨allValues
           :EndIf
-          :If ~0∊⍴allSubKeys←GetAllSubKeyNames key
+          :If 0≠≢allSubKeys←GetAllSubKeyNames key
               :For thisSubKey :In allSubKeys
-                  :If ~0∊⍴buffer←(depth+1)GetTree key,(('\'≠¯1↑key)/'\'),thisSubKey
+                  :If 0≠≢buffer←(depth+1)GetTree key,(('\'≠¯1↑key)/'\'),thisSubKey
                       r⍪←buffer
                   :EndIf
               :EndFor
@@ -620,7 +618,7 @@
     ⍝ See `GetTree` if you don't need the data of the values.
       :Access Public Shared
       depth←{0=⎕NC ⍵:0 ⋄ ⍎⍵}'depth'
-      :If (0=1↑0⍴key)∧1=⍴,key                   ⍝ Is it a valid handle?
+      :If (0=1↑0⍴key)∧1=≢key                   ⍝ Is it a valid handle?
           11/⍨⎕SIGNAL'WinReg error: invalid right argument'
       :ElseIf (' '=1↑0⍴key)∧1=≡key              ⍝ Is it a path?
           handle←OpenKey key
@@ -631,13 +629,13 @@
           11 ⎕SIGNAL⍨'WinReg error: key does not exist'
       :Else
           r←1 4⍴depth(key,('\'≠¯1↑key)/'\')'' ''
-          :If ~0∊⍴allValues←GetAllNamesAndValues handle
+          :If 0≠≢allValues←GetAllNamesAndValues handle
               allValues[;1]←(⊂key,('\'≠¯1↑key)/'\'),¨allValues[;1]
               r⍪←(1+depth),allValues
           :EndIf
-          :If ~0∊⍴allSubKeys←GetAllSubKeyNames key
+          :If 0≠≢allSubKeys←GetAllSubKeyNames key
               :For thisSubKey :In allSubKeys
-                  :If ~0∊⍴buffer←(depth+1)GetTreeWithValues key,(('\'≠¯1↑key)/'\'),thisSubKey
+                  :If 0≠≢buffer←(depth+1)GetTreeWithValues key,(('\'≠¯1↑key)/'\'),thisSubKey
                       r⍪←buffer
                   :EndIf
               :EndFor
@@ -655,7 +653,7 @@
      ⍝ Both, `source` as well as `destination` can be one of:
      ⍝ * A path (sub key)
      ⍝ * A handle
-      :If (0=1↑0⍴source)∧1=⍴,source       ⍝ Is it a handle?
+      :If (0=1↑0⍴source)∧1=≢source       ⍝ Is it a handle?
           sourceIsHandle←1
           sourceHandle←source
       :ElseIf (' '=1↑0⍴source)∧1=≡source  ⍝ Is it a path
@@ -664,7 +662,7 @@
       :Else
           'WinReg error: invalid right argument ("source")'⎕SIGNAL 11
       :EndIf
-      :If (0=1↑0⍴destination)∧1=⍴,destination       ⍝ Is it a handle?
+      :If (0=1↑0⍴destination)∧1=≢destination       ⍝ Is it a handle?
           destinationIsHandle←1
           destinationHandle←destination
       :ElseIf (' '=1↑0⍴destination)∧1=≡destination  ⍝ Is it a path
@@ -698,13 +696,13 @@
      ⍝
      ⍝ Note that for a default value a "\\" is returned as value name.
       :Access Public Shared
-      :If (0=1↑0⍴y)∧1=⍴,y       ⍝ Is it a handle?
+      :If (0=1↑0⍴y)∧1=≢y       ⍝ Is it a handle?
           handle←y
           subKey←''
           yIsHandle←1
       :ElseIf (' '=1↑0⍴y)∧1=≡y  ⍝ Is it a path
           y←CheckPath y
-          (path subKey)←SplitPath y
+          (path subKey)←##.APLTreeUtils2.SplitPath y
           handle←OpenKey path
           yIsHandle←0
       :Else
@@ -729,15 +727,15 @@
      ⍝ `⍵` can be one of:
      ⍝ * A path (sub key)
      ⍝ * A handle to a sub key
-      'WinReg error: right argument must not be empty'⎕SIGNAL 11/⍨0∊⍴y
+      'WinReg error: right argument must not be empty'⎕SIGNAL 11/⍨0=≢y
       :If 1≠≡y
-      :AndIf (0=1↑0⍴1⊃,y)∧1=⍴,1⊃,y       ⍝ Is it a handle?
+      :AndIf (0=1↑0⍴1⊃,y)∧1=≢1⊃,y       ⍝ Is it a handle?
           yIsHandle←1
           handle←y
           subKey←''
       :ElseIf (' '=1↑0⍴y)∧1=≡y           ⍝ Is it a path?
           y←CheckPath y
-          (path subKey)←SplitPath{⍵↓⍨-'\'=¯1↑⍵}y
+          (path subKey)←##.APLTreeUtils2.SplitPath{⍵↓⍨-'\'=¯1↑⍵}y
           handle←OpenKey path
           yIsHandle←0
       :Else
@@ -758,11 +756,11 @@
      ⍝ This method normally returns either ERROR_SUCCESS or ERROR_FILE_NOT_FOUND
      ⍝ in case the value did not exist from the start.
       :If 1≠≡y
-      :AndIf (0=1↑0⍴1⊃,y)∧1=⍴,1⊃,y       ⍝ Is it a handle?
+      :AndIf (0=1↑0⍴1⊃,y)∧1=≢1⊃,y       ⍝ Is it a handle?
           yIsHandle←1
           (handle value)←y
       :ElseIf (' '=1↑0⍴y)∧1=≡y  ⍝ Is it a path
-          (subKey value)←SplitPath y
+          (subKey value)←##.APLTreeUtils2.SplitPath y
           subKey←CheckPath subKey
           handle←OpenKey subKey
           yIsHandle←0
@@ -780,7 +778,7 @@
     ⍝
     ⍝ Note that you cannot pass a handle as right argument because
     ⍝ that makes no sense: if there is a handle the sub key **must** exist.
-      'WinReg error: right argument must not be empty'⎕SIGNAL 11/⍨0∊⍴path
+      'WinReg error: right argument must not be empty'⎕SIGNAL 11/⍨0=≢path
       handle←OpenKey path
       bool←handle≠0
       Close handle
@@ -815,11 +813,11 @@
     ⍝ * Path (sub key)
     ⍝ * A handle to a sub key
       :If 1≠≡y
-      :AndIf (0=1↑0⍴1⊃,y)∧1=⍴,1⊃,y       ⍝ Is it a handle?
+      :AndIf (0=1↑0⍴1⊃,y)∧1=≢1⊃,y       ⍝ Is it a handle?
           yIsHandle←1
           (handle value)←y
       :ElseIf (' '=1↑0⍴y)∧1=≡y  ⍝ Is it a path
-          (subKey value)←SplitPath y
+          (subKey value)←##.APLTreeUtils2.SplitPath y
           subKey←CheckPath subKey
           handle←OpenKey subKey
           yIsHandle←0
@@ -830,7 +828,7 @@
           bool←0
       :Else
           names←GetAllValueNames handle
-          bool←(⊂Lowercase value)∊Lowercase names
+          bool←(⊂##.APLTreeUtils2.Lowercase value)∊##.APLTreeUtils2.Lowercase names
           Close(~yIsHandle)/handle
       :EndIf
     ∇
@@ -838,7 +836,7 @@
     ∇ {r}←Close handle;RegCloseKey;_
       :Access Public Shared
       r←⍬
-      :If ~0∊⍴handle
+      :If 0≠≢handle
           ⎕NA'U ADVAPI32.dll.C32|RegCloseKey U'
           _←RegCloseKey¨handle
       :EndIf
@@ -888,16 +886,16 @@
     ⍝ Returns the full Registry key for `aplVersion` which defaults to `'#' ⎕WG 'APLVersion'` when empty.
       :Access Public Shared
       r←'HKEY_CURRENT_USER\Software\Dyalog\Dyalog APL/W'
-      v←{0∊⍴⍵:'#'⎕WG'APLVersion' ⋄ ⍵}aplVersion
-      r,←(0<+/'-64'⍷↑v)/'-64'
-      r,←' ',⊃{⍺,'.',⍵}/2↑'.'Split 2⊃v
+      v←{0=≢⍵:'#'⎕WG'APLVersion' ⋄ ⍵}aplVersion
+      r,←(0<+/'-64'⍷⊃v)/'-64'
+      r,←' ',⊃{⍺,'.',⍵}/2↑'.'##.APLTreeUtils2.Split 2⊃v
       r,←(80=⎕DR' ')/' Unicode'
      ⍝Done
     ∇
 
     ⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝ Private stuff ⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝⍝,
     ∇ HKEY←Get_HKEY_From Type
-      Type←{0∊⍴⍵:'HKEY_CURRENT_USER' ⋄ ⍵}Type
+      Type←{0=≢⍵:'HKEY_CURRENT_USER' ⋄ ⍵}Type
       :If ' '=1↑0⍴Type
           :Select Type
           :Case 'HKEY_CLASSES_ROOT'
@@ -954,11 +952,11 @@
       ⍝ GetAll 'REG'
       ⍝ GetAll 'ERROR'
           l←⎕NL 2                           ⍝ All variables
-          l←(l[;⍳⍴,⍵]∧.=⍵)⌿l                ⍝ Only those which start with ⍵
+          l←(l[;⍳≢⍵]∧.=⍵)⌿l                 ⍝ Only those which start with ⍵
           (↓l)~¨' '                         ⍝ Transform into vectors of vectors
       }
 
-    Partition←{⍵⊂⍨⍵≠⎕ucs 0}
+    Partition←{⎕ML←3 ⋄ ⍵⊂⍨⍵≠NULL}
 
     ∇ r←GetVersion;rc;OSVERSIONINFO
    ⍝ Gets the OS version.
@@ -999,11 +997,11 @@
 
     ∇ r←mat GetAsString value;values
     ⍝ Sub fns of GetErrorAsStringFrom and GetTypeAsStringFrom
-      :If 0∊⍴value
+      :If 0=≢value
           r←⍉mat,[0.5]⍎¨mat             ⍝ Build matrix with cols "Name" and "Value"
       :Else
           values←⍎¨l                ⍝ Get the values
-          r←{1=⍴,⍵:↑⍵ ⋄ ⍵}(mat,⊂'?')[values⍳value]
+          r←{1=≢⍵:⊃⍵ ⋄ ⍵}(mat,⊂'?')[values⍳value]
       :EndIf
     ∇
 
@@ -1027,12 +1025,12 @@
 
     ∇ r←List string
       ⍝ List all vars starting with "string"
-      r←(↑string)⎕NL-2
-      r←string{⍵⌿⍨((⍴⍺)↑[2]⊃⍵)∧.=⍺}r
+      r←(⊃string)⎕NL-2
+      r←string{⍵⌿⍨((≢⍺)↑[2]↑⍵)∧.=⍺}r
     ∇
 
       GetAllTypes←{
-          'REG_'{⍵/⍨⍺∘≡¨(⍴⍺)↑¨⍵}⎕NL-2
+          'REG_'{⍵/⍨⍺∘≡¨(≢⍺)↑¨⍵}⎕NL-2
       }
 
 :EndClass

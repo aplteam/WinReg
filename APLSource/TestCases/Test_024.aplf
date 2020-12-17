@@ -1,4 +1,4 @@
- R←Test_024(stopFlag batchFlag);path;⎕TRAP
+ R←Test_024(stopFlag batchFlag);path;⎕TRAP;qdmx
 ⍝ Exercise error messages with `GetString`
  R←T._Failed
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
@@ -15,21 +15,24 @@
      ##.WinReg.GetString 3⍴⊂path,'str1_'
      →0
  :Else
-     →T.FailsIf'WinReg error: invalid right argument'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: invalid right argument'≢qdmx.EM
  :EndTrap
 
  :Trap 11
      ##.WinReg.GetString''
      →0
  :Else
-     →T.FailsIf'WinReg error: right argument must not be empty'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: right argument must not be empty'≢qdmx.EM
  :EndTrap
 
  :Trap 11
      ##.WinReg.GetString 123
      →0
  :Else
-     →T.FailsIf'WinReg error: invalid right argument'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: invalid right argument'≢qdmx.EM
  :EndTrap
 
 ⍝ Tidy up

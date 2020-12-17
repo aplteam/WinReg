@@ -1,2 +1,6 @@
  Prepare
+ ⎕IO←1 ⋄ ⎕ML←1
  T←⎕NEW ##.Tester2 ⎕THIS
+ T.codeCoverage←⎕NEW ##.CodeCoverage(,⊂'#.',{⍵,'.',⍵}2↓⍕⎕THIS.##)
+ T.codeCoverage.filename←(⊃1 ⎕NPARTS''),'TestResults/CodeCoverage'
+⍝Done

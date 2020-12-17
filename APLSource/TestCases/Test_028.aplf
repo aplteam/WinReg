@@ -1,4 +1,4 @@
- R←Test_028(stopFlag batchFlag);path;∆;⎕TRAP
+ R←Test_028(stopFlag batchFlag);path;∆;⎕TRAP;qdmx
 ⍝ Exercise `PutBinary` & `GetBinary`
  R←T._Failed
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
@@ -27,35 +27,40 @@
      ##.WinReg.PutBinary(path,'\tooBig')128
      →0
  :Else
-     →T.FailsIf'WinReg error: invalid data for "Binary"'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: invalid data for "Binary"'≢qdmx.EM
  :EndTrap
 
  :Trap 11
      ##.WinReg.PutBinary(path,'\tooSmall')¯129
      →0
  :Else
-     →T.FailsIf'WinReg error: invalid data for "Binary"'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: invalid data for "Binary"'≢qdmx.EM
  :EndTrap
 
  :Trap 11
      ##.WinReg.PutBinary(path,'number')(⌊/⍬)
      →0
  :Else
-     →T.FailsIf'WinReg error: invalid data for "Binary"'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: invalid data for "Binary"'≢qdmx.EM
  :EndTrap
 
  :Trap 11
      ##.WinReg.PutBinary(path,'number')(⌈/⍬)
      →0
  :Else
-     →T.FailsIf'WinReg error: invalid data for "Binary"'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: invalid data for "Binary"'≢qdmx.EM
  :EndTrap
 
  :Trap 11
      ##.WinReg.PutBinary(path)(123)
      →0
  :Else
-     →T.FailsIf'WinReg error: default values must be of type REG_SZ (string)'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: default values must be of type REG_SZ (string)'≢qdmx.EM
  :EndTrap
 
 ⍝ Tidy up

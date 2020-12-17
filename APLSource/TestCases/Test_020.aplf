@@ -5,9 +5,9 @@
 
 ⍝ Tests
  →T.FailsIf 2≠⍴⍴##.WinReg.ListError
- →T.FailsIf 0=0⊃⍴##.WinReg.ListError
+ →T.FailsIf 0=1⊃⍴##.WinReg.ListError
 
  →T.FailsIf 2≠⍴⍴##.WinReg.ListReg
- →T.FailsIf 0=0⊃⍴##.WinReg.ListReg
+ →T.FailsIf 0=1⊃⍴##.WinReg.ListReg
 
  R←T._OK

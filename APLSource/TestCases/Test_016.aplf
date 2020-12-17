@@ -1,4 +1,4 @@
- R←Test_016(stopFlag batchFlag);path;buffer;all;⎕TRAP
+ R←Test_016(stopFlag batchFlag);path;buffer;all;⎕TRAP;qdmx
 ⍝ Exercise `GetTree`
  R←T._Failed
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
@@ -17,22 +17,24 @@
 
 ⍝ Tests...
  buffer←##.WinReg.GetTree path
- →T.FailsIf~buffer[;0]≡0 1 1 1 2 2 1 2 2 2 3 3
+ →T.FailsIf~buffer[;1]≡0 1 1 1 2 2 1 2 2 2 3 3
  all←path∘,¨'' 'String1' 'TheRest' 'sub\' 'sub\Agile' 'sub\FirstPrime' 'sub\more\' 'sub\more\Agile2' 'sub\more\NextPrime' 'Other\' 'Other\APL' 'Other\Version'
- →T.FailsIf~buffer[;1]Match all
+ →T.FailsIf~buffer[;2]Match all
 
  :Trap 11
      buffer←##.WinReg.GetTree path,'doesnotexist'
      →T.FailsIf 1
  :Else
-     →T.FailsIf'WinReg error: key does not exist'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: key does not exist'≢qdmx.EM
  :EndTrap
 
  :Trap 11
      buffer←##.WinReg.GetTree 111
      →T.FailsIf 1
  :Else
-     →T.FailsIf'WinReg error: right argument is not a key name'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: right argument is not a key name'≢qdmx.EM
  :EndTrap
 
 ⍝ Tidy up

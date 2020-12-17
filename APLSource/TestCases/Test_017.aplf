@@ -17,24 +17,26 @@
 
 ⍝ Tests...
  buffer←##.WinReg.GetTreeWithValues path
- →T.FailsIf~buffer[;0]≡0 1 1 1 2 2 1 2 2 2 3 3
+ →T.FailsIf~buffer[;1]≡0 1 1 1 2 2 1 2 2 2 3 3
  allKeys←path∘,¨'' 'String1' 'TheRest' 'sub\' 'sub\Agile' 'sub\FirstPrime' 'sub\more\' 'sub\more\Agile2' 'sub\more\NextPrime' 'Other\' 'Other\APL' 'Other\Version'
- →T.FailsIf~buffer[;1]Match allKeys
+ →T.FailsIf~buffer[;2]Match allKeys
  allData←'hello' 42 'Is great' 13 'APL' 2 'Ruby' 3
- →T.FailsIf~allData Match buffer[;2]~⊂''
+ →T.FailsIf~allData Match buffer[;3]~⊂''
 
  :Trap 11
      buffer←##.WinReg.GetTree path,'doesnotexist'
      →T.FailsIf 1
  :Else
-     →T.FailsIf'WinReg error: key does not exist'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: key does not exist'≢qdmx.EM
  :EndTrap
 
  :Trap 11
      ##.WinReg.GetTree 123
      →T.FailsIf 1
  :Else
-     →T.FailsIf'WinReg error: right argument is not a key name'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: right argument is not a key name'≢qdmx.EM
  :EndTrap
 
 ⍝ Tidy up

@@ -1,4 +1,4 @@
- R←Test_008(stopFlag batchFlag);path;names;names2;data;data2;⎕TRAP
+ R←Test_008(stopFlag batchFlag);path;names;names2;data;data2;⎕TRAP;qdmx
 ⍝ Exercide `GetAllValueNames`
  R←T._Failed
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
@@ -27,24 +27,26 @@
 
  data←'verbose'##.WinReg.GetAllValueNames path
  data2←'String1' 'Second' 'TheRest' 'Biggest' 'Smallest' 'ThisIsAnExtremelyLongKeyUsedToSaveAStringInTheWindowsRegistry' 'Nested_1' 'Nested_2' 'Nested_3'
- data2←data2,[0.5]1 1 4 4 4 1 7 7 7
- →T.FailsIf data≢data2
+ data2←data2,[1.5]1 1 4 4 4 1 7 7 7
+ →T.GoToTidyUp data≢data2
 
  :Trap 11
      ##.WinReg.GetAllValueNames 123 123
-     →0
+     →T.GoToTidyUp 1
  :Else
-     →T.FailsIf'WinReg error: invalid right argument'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.GoToTidyUp'WinReg error: invalid right argument'≢qdmx.EM
  :EndTrap
 
  :Trap 11
      ##.WinReg.GetAllValueNames 123
-     →0
+     →T.GoToTidyUp 1
  :Else
-     →T.FailsIf'WinReg error: ERROR_INVALID_HANDLE'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.GoToTidyUp'WinReg error: ERROR_INVALID_HANDLE'≢qdmx.EM
  :EndTrap
 
-⍝ Tidy up
- ##.WinReg.DeleteSubKeyTree path
-
  R←T._OK
+
+∆TidyUp:
+ ##.WinReg.DeleteSubKeyTree path

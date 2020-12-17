@@ -1,4 +1,4 @@
- R←Test_CopyTree_01(stopFlag batchFlag);path;rc;buf;path1;path2;⎕TRAP
+ R←Test_CopyTree_01(stopFlag batchFlag);path;rc;buf;path1;path2;⎕TRAP;qdmx
 ⍝ Exercise `CopyTree`
  R←T._Failed
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
@@ -40,7 +40,8 @@
      rc←##.WinReg.CopyTree path1 path1
      →T.FailsIf 1
  :Else
-     →T.FailsIf'WinReg error: recursive copy failed'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: recursive copy failed'≢qdmx.EM
  :EndTrap
 
  rc←##.WinReg.CopyTree(path1)(path2)

@@ -1,4 +1,4 @@
- R←Test_009(stopFlag batchFlag);path;data;data2;⎕TRAP
+ R←Test_009(stopFlag batchFlag);path;data;data2;⎕TRAP;qdmx
 ⍝ Exercise `GetAllNamesAndValues`
  R←T._Failed
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
@@ -30,16 +30,17 @@
  data2,←⊂'Smallest' ¯2147483647
  data2,←⊂'Nested1'('one' 'two' 'three' 'four' 'five' 'six' 'seven' 'eight')
  data2,←⊂'Nested2'('January' 'February' 'March' 'May' 'June' 'July' 'August' 'September' 'October' 'November' 'December')
- →T.FailsIf data[;0 1]≢⊃data2
+ →T.GoToTidyUp data[;1 2]≢↑data2
 
  :Trap 11
      ##.WinReg.GetAllNamesAndValues 123
-     →0
+     →T.GoToTidyUp 1
  :Else
-     →T.FailsIf'WinReg error: ERROR_INVALID_HANDLE'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.GoToTidyUp'WinReg error: ERROR_INVALID_HANDLE'≢qdmx.EM
  :EndTrap
 
-⍝ Tidy up
- ##.WinReg.DeleteSubKeyTree path
-
  R←T._OK
+
+∆TidyUp:
+ ##.WinReg.DeleteSubKeyTree path

@@ -9,7 +9,7 @@
  ##.WinReg.PutString(path,'str1')'hello'
  ##.WinReg.PutString(path,'str2')'universe'
  ##.WinReg.PutValue(path,'val1')42
- →T.FailsIf 3≠0⊃⍴##.WinReg.GetAllValues path
+ →T.FailsIf 3≠1⊃⍴##.WinReg.GetAllValues path
 
 ⍝ Tests...
  →T.FailsIf 0≠##.WinReg.DeleteValue(path,'str1')
@@ -17,7 +17,7 @@
  →T.FailsIf 0≠##.WinReg.DeleteValue(path,'val1')
  →T.FailsIf 2≠##.WinReg.DeleteValue(path,'doesnot exist')
 
- →T.FailsIf 0≠0⊃⍴##.WinReg.GetAllValues path
+ →T.FailsIf 0≠1⊃⍴##.WinReg.GetAllValues path
 
 ⍝ Tidy up
  ##.WinReg.DeleteSubKeyTree path

@@ -17,7 +17,7 @@
  f1∨←~∧/⎕D∊⍨d~'-'
 
 ⍝ publish.config must be in line with what "Version" returns of course:
- xml←⎕XML'flat'##.APLTreeUtils.ReadUtf8File'publish.config'
+ xml←⎕XML⊃⎕NGET'publish.config'
  f2←v≢(2+⎕IO)⊃xml[xml[;1+⎕IO]⍳⊂'version';]
  f2∨←d≢(2+⎕IO)⊃xml[xml[;1+⎕IO]⍳⊂'date';]
 

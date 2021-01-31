@@ -1,0 +1,44 @@
+ R←Test_Misc_025(stopFlag batchFlag);path;∆;⎕TRAP;qdmx
+⍝ Exercise `PutValue` & `GetValue`
+ R←T._Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ path←GetRegPath
+
+⍝ Preconditions
+ ##.WinReg.DeleteSubKeyTree path                         ⍝ Delete any left-overs
+
+⍝ Tests...
+   ⍝ Write a number and read it back
+ ##.WinReg.PutValue(path,'number')(∆←123)
+   ⍝ Read the data back
+ →T.FailsIf ∆≢##.WinReg.GetValue path,'number'
+
+   ⍝ Write invalid data
+ :Trap 11
+     ##.WinReg.PutValue(path,'number')''
+     →0
+ :Else
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: data has invalid depth/shape'≢qdmx.EM
+ :EndTrap
+
+ :Trap 11
+     ##.WinReg.PutValue(path,'number')'STRING'
+     →0
+ :Else
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: data has invalid depth/shape'≢qdmx.EM
+ :EndTrap
+
+ :Trap 11
+     ##.WinReg.PutValue(path)(123)
+     →0
+ :Else
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: default values must be of type REG_SZ (string)'≢qdmx.EM
+ :EndTrap
+
+⍝ Tidy up
+ ##.WinReg.DeleteSubKeyTree path
+
+ R←T._OK

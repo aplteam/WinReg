@@ -1,0 +1,24 @@
+ R←Test_Misc_013(stopFlag batchFlag);path;myReg;length;_;∆;⎕TRAP
+⍝ Exercise `GetValue` & `PutValue` on EXPAND_SZ
+ R←T._Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ path←GetRegPath
+
+⍝ Preconditions
+ ##.WinReg.DeleteSubKeyTree path                         ⍝ Delete any left-overs
+
+⍝ Tests..,
+   ⍝ Write string "%WinDir%" and read it back (must remain unchanged!)
+ ##.WinReg.PutString(path,'str1_')'%WinDir%'
+   ⍝ Read that big chunk back:
+ →T.FailsIf'%WinDir%'≢##.WinReg.GetString path,'str1_'
+
+   ⍝ Write string "%WinDir%" es "REG_EXPAND_SZ" and read it back (must have changed!)
+ ##.WinReg.REG_EXPAND_SZ ##.WinReg.PutString(path,'str1_')'%WinDir%'
+   ⍝ Read the data back
+ →T.FailsIf'%WinDir%'≡##.WinReg.GetString path,'str1_'
+
+⍝ Tidy up
+ ##.WinReg.DeleteSubKeyTree path
+
+ R←T._OK

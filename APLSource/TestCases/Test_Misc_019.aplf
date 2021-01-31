@@ -1,0 +1,38 @@
+ R←Test_Misc_019(stopFlag batchFlag);path;rc;buf;path2;⎕TRAP;qdmx
+⍝ Exercise `KeyInfo`
+ R←T._Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ path←GetRegPath
+
+⍝ Preconditions
+ ##.WinReg.DeleteSubKeyTree path                         ⍝ Delete any left-overs
+   ⍝ Create 4 values
+ ##.WinReg.PutString(path,'\hello')'world'
+ ##.WinReg.PutString(path,'\hello2')'Universe'
+ ##.WinReg.PutString(path,'\hello3')'Third'
+ ##.WinReg.PutString(path,'\hello4')'Forth'
+   ⍝ Create 3 subkeys with a default value
+ path2←path,'\sub1\'
+ ##.WinReg.PutString path2'sub1 default'
+ path2←path,'\sub2\'
+ ##.WinReg.PutString path2'sub2 default'
+ path2←path,'\sub3\'
+ ##.WinReg.PutString path2'sub3 default'
+
+⍝ Tests
+ →T.FailsIf 4 3≢2↑##.WinReg.KeyInfo path                     ⍝ Three subkeys and 4 values?
+
+⍝ Deal with invalid right argument
+ :Trap 11
+     ##.WinReg.KeyInfo 123
+     →0
+ :Else
+     qdmx←⎕DMX
+     →T.FailsIf'WinReg error: ERROR_INVALID_HANDLE'≢qdmx.EM
+ :EndTrap
+
+⍝ Tidy up
+ rc←##.WinReg.DeleteSubKeyTree path
+ →T.FailsIf 0≠rc
+
+ R←T._OK

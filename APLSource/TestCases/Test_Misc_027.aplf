@@ -1,0 +1,14 @@
+ R←Test_Misc_027(stopFlag batchFlag);name;val;all;⎕TRAP
+⍝ Exercise `GetErrorAsStringFrom`
+ R←T._Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+
+⍝ Tests
+ :For name val :InEach ↓⍉##.WinReg.ListError
+     →T.FailsIf name≢##.WinReg.GetErrorAsStringFrom val
+ :EndFor
+
+ all←##.WinReg.ListError
+ →T.FailsIf all≢##.WinReg.GetErrorAsStringFrom''
+
+ R←T._OK

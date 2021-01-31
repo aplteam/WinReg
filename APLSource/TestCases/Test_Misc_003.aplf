@@ -1,0 +1,42 @@
+ R←Test_Misc_003(stopFlag batchFlag);path;rc;buf;⎕TRAP
+⍝ Exercise `DeleteSubKeyTree`
+ R←T._Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ path←GetRegPath
+
+⍝ Preconditions
+ ##.WinReg.DeleteSubKeyTree path                         ⍝ Delete any left-overs
+ ##.WinReg.PutString(path,'AAA\')'It''s folder AAA'
+ ##.WinReg.PutString(path,'AAA\hello')'world'
+ ##.WinReg.PutString(path,'AAA\BB\hello')'Universe'
+ ##.WinReg.PutString(path,'AAA\BB\')'It''s folder BB'
+
+ buf←##.WinReg.GetString path,'AAA\'
+ →T.FailsIf'It''s folder AAA'≢buf
+ buf←##.WinReg.GetString path,'AAA\hello'
+ →T.FailsIf'world'≢buf
+ buf←##.WinReg.GetString path,'AAA\BB\'
+ →T.FailsIf'It''s folder BB'≢buf
+ buf←##.WinReg.GetString path,'AAA\BB\hello'
+ →T.FailsIf'Universe'≢buf
+
+⍝ Tests...
+ rc←##.WinReg.DeleteSubKey path,'AAA'                    ⍝ This fails because it contains subkeys
+ →T.FailsIf 5≠rc                                          ⍝ Access is denied
+ rc←##.WinReg.DeleteSubKeyTree path,'AAA'                ⍝ Deletes the whole tree
+ →T.FailsIf 0≠rc                                          ⍝ Access is denied
+
+ rc←##.WinReg.DoesKeyExist path,'AAA\'
+ →T.FailsIf 0≠rc
+ rc←##.WinReg.DoesValueExist path,'AAA\hello'
+ →T.FailsIf 0≠rc
+ rc←##.WinReg.DoesKeyExist path,'AAA\BB'
+ →T.FailsIf 0≠rc
+ rc←##.WinReg.DoesValueExist path,'AAA\BB\hello'
+ →T.FailsIf 0≠rc
+
+⍝ Tidy up
+ rc←##.WinReg.DeleteSubKeyTree path                      ⍝ Deletes the whole tree
+ →T.FailsIf 0≠rc                                          ⍝ Access is denied
+
+ R←T._OK

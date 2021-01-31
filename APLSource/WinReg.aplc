@@ -29,7 +29,7 @@
 
     ∇ R←Version
       :Access Public Shared
-      R←'WinReg' '5.0.1.14' '2020-12-17'
+      R←'WinReg' '5.0.1.16' '2020-12-17'
     ∇
 
     ∇ History
@@ -828,7 +828,7 @@
           bool←0
       :Else
           names←GetAllValueNames handle
-          bool←(⊂##.APLTreeUtils2.Lowercase value)∊##.APLTreeUtils2.Lowercase names
+          bool←(⊂⎕C value)∊⎕C names
           Close(~yIsHandle)/handle
       :EndIf
     ∇

@@ -1,12 +1,8 @@
- RunTests;dcfFilename;htmlFilename;tno
+ RunTests;htmlFilename
  Prepare
- dcfFilename←(⊃,/¯1↓⎕NPARTS T.codeCoverage.filename),'.dcf'
- :If ##.FilesAndDirs.IsFile dcfFilename
- :AndIf ∆YesOrNo'CodeCovarge data file already exists; override?'
-     tno←dcfFilename ⎕FTIE 0
-     dcfFilename ⎕FERASE tno
- :EndIf
  T.Run 1
- htmlFilename←##.CodeCoverage.ProcessDataAndCreateReport T.codeCoverage.filename
- ##.APLTreeUtils2.GoToWebPage'file://',htmlFilename
+ htmlFilename←CodeCoverage.ProcessDataAndCreateReport T.codeCoverage.filename
+ :If 1 ∆YesOrNo'View CodeCoverage report?'
+     APLTreeUtils2.GoToWebPage'file://',htmlFilename
+ :EndIf
 ⍝Done

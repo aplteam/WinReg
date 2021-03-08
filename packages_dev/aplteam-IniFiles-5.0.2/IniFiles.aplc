@@ -15,11 +15,13 @@
 
     ∇ r←Version
       :Access Public Shared
-      r←'IniFiles' '5.0.1.16' '2020-12-17'
+      r←'IniFiles' '5.0.2+20' '2021-03-02'
     ∇
 
     ∇ History
       :Access Public Shared
+      ⍝ * 5.0.2
+      ⍝   * Package config file corrected
       ⍝ * 5.0.1
       ⍝   * Internal change: `Uppercase` and Lowercase` replaced by calles to `⎕C`.
       ⍝ * 5.0.0

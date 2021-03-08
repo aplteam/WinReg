@@ -29,11 +29,13 @@
 
     ∇ R←Version
       :Access Public Shared
-      R←'WinReg' '5.0.1.16' '2020-12-17'
+      R←'WinReg' '5.0.2+18' '2021-03-02'
     ∇
 
     ∇ History
       :Access Public Shared
+      ⍝ * 5.0.2
+      ⍝   * Package config corrected
       ⍝ * 5.0.1
       ⍝   * Naming problem fixed caused by move to `APLTreeUtils2`
       ⍝ * 5.0.0

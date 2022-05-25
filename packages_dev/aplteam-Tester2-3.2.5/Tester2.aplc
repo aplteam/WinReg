@@ -22,35 +22,38 @@
 
     ∇ r←Version
       :Access Public shared
-      r←'Tester2' '3.1.2+93' '2021-03-08'
+      r←'Tester2' '3.2.5+108' '2022-05-23'
     ∇
 
     ∇ History
-      :Access Public shared 
-      ⍝ * 3.1.2 ⋄ 2021-03-08
-      ⍝   * Bug fix: in case a test suite was quit by sending `QuitEvent`, a generic `Cleanup` function was executed
-      ⍝     but on group-specific one, if there is any due.
-      ⍝ * 3.1.1 ⋄ 2021-03-01
-      ⍝   * Package config corrected
-      ⍝ * 3.1.0 ⋄ 2021-01-31
-      ⍝   * `RenameTestFnsTo` enhanced
-      ⍝   * Bug fix in `GetTestTemplate`
-      ⍝   * Internal changes:
-      ⍝     * Referencing APLTreeUtils2 changed
-      ⍝     * Call to APLTreeUtils2.Uppercase|Lowercase replaced by calls to ⎕C
-      ⍝   * Documentation improved
-      ⍝ * 3.0.1 ⋄ 2020-11-28
-      ⍝   * `GetRefToAPLTreeUtils` removed
-      ⍝   * Bug fix: invalid calls to `dtb` removed by calls to `A.DTB`.
-      ⍝   * Documentation improved
-      ⍝ * 3.0.0 ⋄ 2020-09-20
-      ⍝   * BREAKING CHANGES:
-      ⍝     * At least Dyalog 18.0 is required
-      ⍝     * The class `APLTreeUtils2` is required
-      ⍝   * `RunThese` now allows the specification of several groups (comma-separated), even with "~"
-      ⍝   * Internal changes
-      ⍝     * Uses now `⎕ML←1`
-      ⍝     * Does not `:Include APLTreeUtils` anymore (but requires `APLTreeUtils2` as a sibling)
+      :Access Public shared
+      ⍝ * 3.2.5 ⋄ 2022-05-22
+      ⍝   * #17 fixed
+      ⍝   * In the GUI the log (not the grid) was distorted
+      ⍝   * Local variables in `ExecuteInitial` renamed so that they explain themselves
+      ⍝ * 3.2.4 ⋄ 2022-05-09
+      ⍝   * Log messages came with a LF in the middle of a message in case batchFlag was 1.
+      ⍝ * 3.2.3 ⋄ 2022-04-13
+      ⍝   * In case an INI file is part of a test suite then under non-Windows platform it would fail prior 3.2.3
+      ⍝ * 3.2.2 ⋄ 2022-04-06
+      ⍝   * Bug fix for `exec_before_each_test` and `exec_after_each_test`:\\
+      ⍝     When the check function did not a return a result an ERROR occured.
+      ⍝ * 3.2.1 ⋄ 2021-10-28
+      ⍝   * Minor bug fix in GetTestTemplate: explicit result was ill-named ("r" rather than "R").
+      ⍝ * 3.2.0 ⋄ 2021-10-01
+      ⍝   * `Tester2` now informs `Link` in case an APL object was changed (`RenameTestFnsTo`) under the condition
+      ⍝     that it is at least Link 3.0 that is managing the code.
+      ⍝   * New constant `NoCiderTests` introduced.
+      ⍝   * The test case that is executed next is now printed to the session BEFORE its execution. Same for the GUI.
+      ⍝     As a consequence the order of the items of a single test call needed to change, but the same information
+      ⍝     is provided as before anyway.
+      ⍝   * Bug fixes
+      ⍝     * The flagging of test cases that are inactive for one reason or another was inconsistant. Those are
+      ⍝       now always flagged with a lamp symbol (⍝).
+      ⍝     * `ListTestFunctions` does not show the lamp symbol anymore.
+      ⍝     * `RenameTestFnsTo` printed to the session rather than returning the messages as result.
+      ⍝     * `CodeCoverage.Finalyze` (which has been marked as deprecated for quite a while) got replaced by
+      ⍝       `CodeCoverage.Finalise`, finally fixing the typo.
       ⍝\\
       ⍝ For a full history (including older versions) see <https://github.com/aplteam/Tester2/releases>
     ∇
@@ -66,9 +69,10 @@
     :Field Public Instance Readonly _LinuxOrWindowsOnly←¯16
     :Field Public Instance Readonly _MacOrWindowsOnly←¯17
     :Field Public Instance Readonly _NoAcreTests←¯18
-    :Field Public Instance Readonly _NotApplicable←¯19
-    :Field Public Instance Readonly _NotImplemented←¯20
-    :Field Public Instance Readonly _IncompatibleVersion←21
+    :Field Public Instance Readonly _NoCiderTests←¯19
+    :Field Public Instance Readonly _NotApplicable←¯20
+    :Field Public Instance Readonly _NotImplemented←¯21
+    :Field Public Instance Readonly _IncompatibleVersion←¯22
 
     :Field Public Instance ReadOnly QuitEvent←993
     :Field Public Instance ReadOnly PassEvent←994
@@ -259,6 +263,10 @@
       _codeCoverage←''
       :If 0<≢parent←'AcreConfig'{⍵∊# ⎕SE:'' ⋄ 0<⍵.⎕NC ⍺:⍵ ⋄ ⍺ ∇ ⍵.##}_ref
           _IniFolder←parent.AcreConfig.ProjectFolder
+      :ElseIf 9=_ref.⎕NC'CiderConfig'
+          _IniFolder←_ref.CiderConfig.HOME
+      :ElseIf 9=_ref.##.⎕NC'CiderConfig'
+          _IniFolder←_ref.##.CiderConfig.HOME
       :Else
           _IniFolder←''
       :EndIf
@@ -289,6 +297,7 @@
     ⍝ * 2=stop in all `Initial*` functions
     ⍝ * 4=stop in all `Cleanup*` functions\\
     ⍝ You may also specify a sum of them, like 3, 5, 6 or 7
+    ⍝ DO NOT localyze `_parms` in this function!
       :Access Public Instance
       stopFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'stopFlag'
       'Invalid left argument '⎕SIGNAL 11/⍨1≠≡,stopFlag
@@ -309,6 +318,7 @@
     ⍝ Note that this is a Windows-only feature.\\
     ⍝ The left argument is useful only for defining defaults on the GUI.\\
     ⍝ See also `Run` which does vasically the same but without a GUI.\\
+    ⍝ DO NOT localyze `_parms` in this function!
       :Access Public Instance
       :If 'Win'≡A.GetOperatingSystem''
           _parms←{0<⎕NC ⍵:⍎⍵ ⋄ CreateParms ⍬}'parms'
@@ -339,6 +349,7 @@
     ⍝ The result:
     ⍝ 1. A return code. 0 means all test cases passed successfully.
     ⍝ 2. A vector of text vectors with the log. The log contains detailed information about what was carried out.
+    ⍝ DO NOT localyze `_parms` in this function!
       :Access Public Instance
       stopFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'stopFlag'
       'Invalid left argument '⎕SIGNAL 11/⍨~(⊂stopFlag)∊0 1 2 4 3 5 6 7
@@ -361,6 +372,7 @@
     ⍝ You may also specify a sum of them, like 3, 5, 6 or 7.\\
     ⍝ This function does not trap errors in case `debugFlag` is 1.\\
     ⍝ Returns 0 for okay or a 1 as `rc` in case one or more test cases are broken or failed.\\
+    ⍝ DO NOT localyze `_parms` in this function!
       :Access Public Instance
       stopFlag←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'stopFlag'
       'Invalid left argument '⎕SIGNAL 11/⍨~(⊂stopFlag)∊0 1 2 4 3 5 6 7
@@ -471,15 +483,15 @@
       _INI←⍬                    ⍝ Flatten any leftovers
       :If 0<ps.⎕NC'list'        ⍝ Then no test cases got executed, probably because `Initial` failed.
           (rc2 log)←ReportTestResults ps
-          :If rc≠2
+          :If rc2≠2
               rc←rc2
           :EndIf
           _ref.TestCasesExecutedAt←A.FormatDateTime ⎕TS
           ShowLog'Time of execution recorded on variable ',(⍕_ref),'.TestCasesExecutedAt as: ',_ref.TestCasesExecutedAt
       :EndIf
-      {}ExecuteCleanup⍣(0<≢ps.list)⊣_ref ps
+      {}ExecuteCleanup _ref ps
       :If 0<≢_codeCoverage
-          :If 0=≢res←_codeCoverage.Finalyze 1
+          :If 0=≢res←_codeCoverage.Finalise 1
               ⎕←'Coverage report: nothing to report'
           :Else
               ShowLog'Coverage report: ',res
@@ -523,7 +535,7 @@
       :EndIf
     ∇
 
-    ∇ ref←ProcessIniFiles(ref ps);iniFilenames;iniFilename;report;parent
+    ∇ ref←ProcessIniFiles(ref ps);iniFilenames;iniFilename;report;parent;cn
       iniFilenames←''
       iniFilename←_IniFolder,((0<≢_IniFolder)/'/'),'Testcases.ini'
       report←,⊂'Searching for INI file ',iniFilename
@@ -533,7 +545,12 @@
       :Else
           report[≢report]←⊂((≢report)⊃report),': not found'
       :EndIf
-      iniFilename←_IniFolder,((0<≢_IniFolder)/'/'),'Testcases-',(2 ⎕NQ'#' 'GetEnvironment' 'Computername'),'.ini'
+      :If 'Win'≡A.GetOperatingSystem ⍬
+          cn←2 ⎕NQ'#' 'GetEnvironment' 'Computername'
+      :Else
+          cn←⊃⎕SH'uname -n'
+      :EndIf
+      iniFilename←_IniFolder,((0<≢_IniFolder)/'/'),'Testcases-',cn,'.ini'
       report,←⊂'Searching for INI file ',iniFilename
       :If ⎕NEXISTS iniFilename
           iniFilenames,←⊂iniFilename
@@ -558,8 +575,8 @@
           {A.ToNum⌽⍵↑⍨¯1+⍨⍵⍳'_'}⌽⍵
       }
 
-    ∇ {r}←ExecuteInitial(ref ps);report
-      r←1
+    ∇ {success}←ExecuteInitial(ref ps);report
+      success←1
       report←'Looking for a function "Initial": '
       :If 3=ref.⎕NC'Initial'
           :If 2⊃⌽(8⍴2)⊤ps.stopFlag
@@ -572,18 +589,18 @@
               :If 0=⊃⊃ref.⎕AT'Initial'
      ∆stop1:      ref.Initial
               :Else
-     ∆stop2:      r←ref.Initial
+     ∆stop2:      success←ref.Initial
               :EndIf
           :Case 1
               :If 0=⊃⊃ref.⎕AT'Initial'
      ∆stop3:      ref.Initial ps
               :Else
-     ∆stop4:      r←ref.Initial ps
+     ∆stop4:      success←ref.Initial ps
               :EndIf
           :Else
               11 ⎕SIGNAL⍨'The "Initial" function in ',(⍕ref),' has an invalid signature: it''s neither monadic nor niladic'
           :EndSelect
-          :If r
+          :If success
               report,←'found and successfully executed'
           :Else
               report,←'found and executed but it signalled failure!'
@@ -719,8 +736,11 @@
                   ps.ref2Gui.∆n.Info.Text←'PAUSING'
                   {0=⍵.ref2Gui.∆n.PauseBtn.State:shy←1 ⋄ _←⎕DL 0.3 ⋄ ∇ ⍵}ps
               :EndIf
+              ¯1 ShowLog(length2↑(length↑testFns),' (',(cw 0⍕i),'/',max,')')
+              i AddToGui(length2↑(length↑'  ',testFns),' (',(cw 0⍕i),'/',max,')')
               (continueFlag i noOf)←HandleInitialize(ref ps currentGroup i noOf)
               :If continueFlag
+                  HandleCleanup ref ps currentGroup i
                   :Continue
               :EndIf
               rc←ExecuteTestFunction ref ps testNo testFns
@@ -738,7 +758,7 @@
               :If 0>rc
                   ps.returnCodes,←rc
               :EndIf
-              ps AddReturCodeToGrid rc i
+              ps AddReturnCodeToGrid rc i
               comment←2↓ref GetFirstCommentLine testFns
               desc←(⎕PW-length2){⍺<≢⍵:'...',⍨⍵↑⍨⍺-4 ⋄ ⍵}⍣(~ps.guiFlag)⊢comment
               :If rc∊0 1
@@ -746,7 +766,7 @@
               :Else
                   marker←'⍝'
               :EndIf
-              ShowLog(length2↑(length↑marker,' ',testFns),' (',(cw 0⍕i),'/',max,')'),' ⍝ ',desc
+              3 ShowLog marker,' ',desc
               i AddToGui(length2↑(length↑marker,' ',testFns),' (',(cw 0⍕i),'/',max,')'),' ⍝ ',desc
               :If ~rc∊_OK,_Failed
               :AndIf ps.guiFlag
@@ -759,21 +779,21 @@
                   :EndIf
               :EndIf
           :Case QuitEvent
-              HandleCleanup ref ps currentGroup i 
+              HandleCleanup ref ps currentGroup i
               ⎕SIGNAL QuitEvent
           :Else
               ps.errCounter+←1
               ps.totalCounter+←1
-              comment←ref GetFirstCommentLine testFns
+              comment←2↓ref GetFirstCommentLine testFns
               desc←(⎕PW-length2){⍺<≢⍵:'...',⍨⍵↑⍨⍺-4 ⋄ ⍵}⍣(~ps.guiFlag)⊢comment
               marker←'#'
-              ShowLog(length2↑(length↑marker,' ',testFns),' (',(cw 0⍕i),'/',max,')'),' ⍝ ',desc
+              ¯2 ShowLog marker' ',desc
               i AddToGui(length2↑(length↑marker,' ',testFns),' (',(cw 0⍕i),'/',max,')'),' ⍝ ',desc
               :If ps.guiFlag
                   ps.ref2Gui.∆n.Grid.Values[i;4]←⊂'{Broken}'
               :EndIf
           :EndTrap
-           HandleCleanup ref ps currentGroup i 
+          HandleCleanup ref ps currentGroup i
           {}⎕WA  ⍝ Enforce a memory compaction in order to get rid of any rubbish.
           :If ps.guiFlag
           :AndIf 0=ps.ref2Gui.∆n.∆Closed
@@ -808,37 +828,40 @@
       log,←⊂'  ',(⍕ps.errCounter),' test case',((1≠+/ps.errCounter)/'s'),' broken',(0<ps.errCounter)/' (flagged with "#")'
       :If 0≠≢ps.returnCodes
           :If _NoBatchTest∊ps.returnCodes
-              log,←⊂'  ',(⍕_NoBatchTest+.=ps.returnCodes),' test cases not executed because they are not "batchable" (flagged with "-")'
+              log,←⊂'  ',(⍕_NoBatchTest+.=ps.returnCodes),' test cases not executed because they are not "batchable" (flagged with "⍝")'
           :EndIf
           :If _Inactive∊ps.returnCodes
               log,←⊂'  ',(⍕_Inactive+.=ps.returnCodes),' test cases not executed because they were inactive (flagged with "⍝")'
           :EndIf
           :If _WindowsOnly∊ps.returnCodes
-              log,←⊂'  ',(⍕_WindowsOnly+.=ps.returnCodes),' test cases not executed because they can only run under Window (flagged with "-")'
+              log,←⊂'  ',(⍕_WindowsOnly+.=ps.returnCodes),' test cases not executed because they can only run under Window (flagged with "⍝")'
           :EndIf
           :If _LinuxOnly∊ps.returnCodes
-              log,←⊂'  ',(⍕_LinuxOnly+.=ps.returnCodes),' test cases not executed because they can only run under Linux (flagged with "-")'
+              log,←⊂'  ',(⍕_LinuxOnly+.=ps.returnCodes),' test cases not executed because they can only run under Linux (flagged with "⍝")'
           :EndIf
           :If _MacOnly∊ps.returnCodes
-              log,←⊂'  ',(⍕_MacOnly+.=ps.returnCodes),' test cases not executed because they can only run under Mac OS (flagged with "-")'
+              log,←⊂'  ',(⍕_MacOnly+.=ps.returnCodes),' test cases not executed because they can only run under Mac OS (flagged with "⍝")'
           :EndIf
           :If _LinuxOrMacOnly∊ps.returnCodes
-              log,←⊂'  ',(⍕_LinuxOrMacOnly+.=ps.returnCodes),' test cases not executed because they can only run under Linux or Mac OS (flagged with "-")'
+              log,←⊂'  ',(⍕_LinuxOrMacOnly+.=ps.returnCodes),' test cases not executed because they can only run under Linux or Mac OS (flagged with "⍝")'
           :EndIf
           :If _LinuxOrWindowsOnly∊ps.returnCodes
-              log,←⊂'  ',(⍕_LinuxOrWindowsOnly+.=ps.returnCodes),' test cases not executed because they can only run under Linux or Windows (flagged with leading "-")'
+              log,←⊂'  ',(⍕_LinuxOrWindowsOnly+.=ps.returnCodes),' test cases not executed because they can only run under Linux or Windows (flagged with "⍝")'
           :EndIf
           :If _MacOrWindowsOnly∊ps.returnCodes
-              log,←⊂'  ',(⍕_MacOrWindowsOnly+.=ps.returnCodes),' test cases not executed because they can only run under Mac OS or Windows (flagged with leading "-")'
+              log,←⊂'  ',(⍕_MacOrWindowsOnly+.=ps.returnCodes),' test cases not executed because they can only run under Mac OS or Windows (flagged with "⍝")'
           :EndIf
           :If _NoAcreTests∊ps.returnCodes
-              log,←⊂'  ',(⍕_NoAcreTests+.=ps.returnCodes),' test cases not executed because they are acre-related (flagged with leading "-")'
+              log,←⊂'  ',(⍕_NoAcreTests+.=ps.returnCodes),' test cases not executed because they are acre-related (flagged with "⍝")'
+          :EndIf
+          :If _NoCiderTests∊ps.returnCodes
+              log,←⊂'  ',(⍕_NoCiderTests+.=ps.returnCodes),' test cases not executed because they are Cider-related (flagged with "⍝")'
           :EndIf
           :If _NotApplicable∊ps.returnCodes
-              log,←⊂'  ',(⍕_NotApplicable+.=ps.returnCodes),' test cases not executed because they were not applicable (flagged with leading "-")'
+              log,←⊂'  ',(⍕_NotApplicable+.=ps.returnCodes),' test cases not executed because they were not applicable (flagged with "⍝")'
           :EndIf
           :If 0<noOf←+/ps.returnCodes∊ListCustomNumbers
-              log,←⊂'  ',(⍕noOf),' test cases not executed because of custom checks (flagged with leading "-")'
+              log,←⊂'  ',(⍕noOf),' test cases not executed because of custom checks (flagged with "⍝")'
           :EndIf
       :EndIf
       ShowLog log
@@ -880,7 +903,7 @@
       :EndIf
       :If 0<≢_exec_before_each_test
           :If 0=1 1⊃⎕AT _exec_before_each_test
-              ⍎_exec_before_each_test,' ps'
+              ⍎_exec_before_each_test,' fnsName ps'
           :Else
               :If 0<≢buff←⍎_exec_before_each_test,' fnsName ps'
                   ⎕←buff
@@ -890,7 +913,7 @@
      ∆StopHere:rc←ref.⍎fnsName,' ',(⍕ps.debugFlag),' ',(⍕ps.batchFlag)
       :If 0<≢_exec_after_each_test
           :If 0=1 1⊃⎕AT _exec_after_each_test
-              ⍎_exec_after_each_test,' ps'
+              ⍎_exec_after_each_test,' fnsName ps'
           :Else
               :If 0<≢buff←⍎_exec_after_each_test,' fnsName ps'
                   ⎕←buff
@@ -905,35 +928,44 @@
 
     ∇ {r}←QuitTests
     ⍝ Use this method to end running test cases prematurely but make sure that everything is tidied up,
-    ⍝ meaning that any `Cleanup` function is executed etc.\\
-    ⍝ For the time being this function just prints a message to the session. Maybe one day Dyalog allows
-    ⍝ Ctrl+Enter on something that the programmer **wants** to trigger error trapping, but at the time
-    ⍝ of writing this is not possible.
+    ⍝ meaning that a `Cleanup` function (if any) is executed etc.\\
       :Access Public Instance
       r←⍬
-      ⎕←'⎕SIGNAL ',(⍕QuitEvent),'   ⍝ Execute this in order to finish the current test run'
+      ⎕SIGNAL QuitEvent
     ∇
 
 
     ∇ {r}←{type}ShowLog msg;selog;buff
-    ⍝ `type` may be (+/-)1 or 2:
+    ⍝ `type` may be 1 or 2 3 or ¯1 or ¯2:
     ⍝ * A 1 means an action message
     ⍝ * A 2 means the result of the execution attempt of a test function.
-    ⍝ * A negative means message with more to come
+    ⍝ * A 3 means "to be appended the very last line in the log"
+    ⍝ * A negative type means message with more to come
     ⍝ `ps` is a parameter space with `ps.log` being, well, the log.
       r←⍬
       :If 0<≢msg
           type←{0<⎕NC ⍵:⍎⍵ ⋄ 1}'type'
-          'Invalid type'⎕SIGNAL 11/⍨~(⊂|type)∊1 2
+          'Invalid type'⎕SIGNAL 11/⍨~(⊂|type)∊1 2 3
           :If ps.batchFlag∧0=ps.guiFlag
-              ps.log,←{1=≡⍵:⊂⍵ ⋄ '-'∧.=5↑⊃⍵:⍵ ⋄ ⊂(1⊃⍵),' ',(2⊃⍵),' ',3⊃⍵}msg
+              :If ~type∊¯2 2
+              :OrIf 0=≢ps.log
+              :OrIf 1<≡msg
+                  ps.log,←{1=≡⍵:⊂⍵ ⋄ '-'∧.=5↑⊃⍵:⍵ ⋄ ⊂(1⊃⍵),' ',(2⊃⍵),' ',3⊃⍵}msg
+              :Else
+                  (¯1↑ps.log)←⊂(⊃¯1↑ps.log),{1=≡⍵:⊂⍵ ⋄ '-'∧.=5↑⊃⍵:⍵ ⋄ ⊂(1⊃⍵),' ',(2⊃⍵),' ',3⊃⍵}msg
+              :EndIf
           :Else
               buff←{1=≡⍵:⊂⍵ ⋄ (3≠≢⍵)∨'---'≡3↑⊃⍵:⍵ ⋄ ⊂(1⊃⍵),' ',(2⊃⍵),' ',(3⊃⍵)}msg
               :If ps.guiFlag
                   :If ps.ref2Gui.∆n.∆Closed
                       ⎕SIGNAL QuitEvent
                   :EndIf
-                  ps.ref2Gui.∆n.Log.Text,←⊆msg
+                  :If 3=type
+                  :AndIf 1=≡msg
+                      ps.ref2Gui.∆n.Log.Text[≢ps.ref2Gui.∆n.Log.Text]←⊂(⊃⌽ps.ref2Gui.∆n.Log.Text),msg
+                  :Else
+                      ps.ref2Gui.∆n.Log.Text,←⊆msg
+                  :EndIf
                   ps.ref2Gui.∆n.Log.SelText←2⍴(≢ps.ref2Gui.∆n.Log.Text),¨1
               :EndIf
               ps.log,←buff
@@ -1259,7 +1291,7 @@
           :If 0≠≢numbers
               r2←((({⊃∘⊃∘(//)∘⎕VFI ⍵↑⍨-(-1)+'_'⍳⍨⌽⍵}¨r2))∊numbers)⌿r2
           :EndIf
-          buff←_ref GetFirstCommentLine¨r2
+          buff←1↓¨_ref GetFirstCommentLine¨r2
           buff←A.DLB buff
           r2←r2,[1.5]buff
           r2←r2[⍋↑⎕C r2[;1];]
@@ -1346,7 +1378,7 @@
     ∇
 
     ∇ {r}←oldName RenameTestFnsTo newName;body;rc;header;comment;res;name;right;left;delFilanme;list;this;no;buff;val;f1;f2
-     ⍝ Renames a test function or a group of test functions and tells acre.\\
+     ⍝ Renames a test function or a group of test functions and tells acre and Link.\\
      ⍝ `oldName` and `newName` **must not** contain a dot.\\
      ⍝ Examples:
      ⍝ ```
@@ -1436,12 +1468,12 @@
       :If ' '≠1↑0⍴rc←_ref.⎕FX↑body
           . ⍝ something went wrong
       :EndIf
-      NotifyAcreAndDeleteOldVersion oldName newName
+      NotifyAcreAndLinkAndDeleteOldVersion oldName newName
      
      ∆Go:
       _ref.⎕EX oldName
       :If (⊃⎕SI)≢⊃1↓⎕SI
-          ⎕←'***Done'
+          r←'***Done'
       :EndIf
     ∇
 
@@ -1449,7 +1481,7 @@
       :Access Public Instance
       ⍝ Injects the code (body) of the test template function into the namespace hosting the test cases if that is an
       ⍝ ordinary namespace. If it is a scripted one the user will be prompted for copying the body to the clipboard.
-      ⍝ The user can then inject that code herself into that scripted namespace.
+      ⍝ The user can then inject that code herself into the scripted namespace/class.
       r←⍬
       groupName←{0<⎕NC ⍵:⍎⍵ ⋄ ''}'groupName'
       'Invalid right argumet: must be an integer between 1 and 999'⎕SIGNAL 11/⍨~(⊂no)∊(⍳999)
@@ -1483,21 +1515,22 @@
       :EndIf
     ∇
 
-    ∇ r←Test_000(stopFlag batchFlag);⎕TRAP
-    ⍝ Model for a test function.
+    ∇ R←Test_000(stopFlag batchFlag);⎕TRAP
+⍝ Model for a test function.
+⍝ *** Watch out: assumes that the instance of Tester2 is called "T".
       ⎕TRAP←(999 'C' '∘∘∘ ⍝ Deliberate error')(0 'N')
       R←T._Failed
      
-    ⍝ Establish pPreconditions...
+⍝ Establish preconditions...
      
       →T.PassesIf 1≡1
       →T.FailsIf 1≢1
       →T.GoToTidyUp 1≢1
+     
       R←T._OK
      
      ∆TidyUp: ⍝ Clean up after this label
-      ⍝ ...
-     
+  ⍝ ...
     ∇
 
     ∇ yesOrNo←{default}YesOrNo question;isOkay;answer;add
@@ -1557,7 +1590,7 @@
           ps
       }
 
-      AddReturCodeToGrid←{
+      AddReturnCodeToGrid←{
           0=ps.guiFlag:shy←⍬
           ps←⍺
           (rc row)←⍵
@@ -1627,28 +1660,30 @@
 
     Remove∆Test_←{'Test_'{l←≢⍺ ⋄ 0=l×←⍺≡l↑⍵:⍵ ⋄ l↓⍵}⍵}
 
-    ∇ {r}←NotifyAcreAndDeleteOldVersion(oldName newName);delFilanme;rc
+    ∇ {r}←NotifyAcreAndLinkAndDeleteOldVersion(oldName newName);delFilanme;rc
       r←⍬
-      :If 0=⎕SE.⎕NC'acre'
-          _ref.⎕EX oldName
-      :Else
-          (oldName newName)←{(⍕_ref),'.',⍵}¨oldName newName
-          :If 3=⎕SE.acre.⎕NC'Version'
-              delFilanme←((-≢'.change')↓⊃⎕SE.acre.Changefile newName),'.delete'
-              :Trap 22
-                  :If 0=≢rc←⎕SE.acre.SetChanged newName
-                      ⎕←'acre was told about the introduction of a new test fns but it was not interested.'
-                  :EndIf
-              :Else
-                  :Return ⍝ Not an acre project
-              :EndTrap
-              :If 0=≢rc←⎕SE.acre.Erase oldName
-                  ⎕←'acre was told about the deletion of a test fns but it was not interested.'
-              :EndIf
-              :If ⎕NEXISTS delFilanme
-                  ⎕NDELETE delFilanme
+      :If 0<⎕SE.⎕NC'acre'
+          :Trap 22
+              rc←⎕SE.acre.SetChanged newName
+          :Else
+              ∘∘∘ ⍝ Huh?! What's up?
+          :EndTrap
+          :If 0<≢rc
+              ⎕SE.acre.Erase oldName
+              :Return
+          :EndIf
+      :EndIf
+      :If 3≤{⊃(//)⎕VFI ⍵↑⍨¯1+⍵⍳'.'}⎕SE.Link.Version
+          rc←⎕SE.Link.Add(⍕_ref),'.',newName
+          →('Not in a linked namespace: '{⍺≡(≢⍺)↑⍵}rc)/0
+          :If 'Added: '{⍺≡(≢⍺)↑⍵}rc
+              rc←⎕SE.Link.Expunge(⍕_ref),'.',oldName
+              :If ~rc
+                  ∘∘∘ ⍝ Huh?! What's up?
               :EndIf
           :EndIf
+      :Else
+          ⎕←'Incompatible version of Link detected; we need 3.0.0 or better'
       :EndIf
     ∇
 
@@ -1674,16 +1709,22 @@
                   result←1
               :EndIf
               :If ~1↑result∊⍬ 1
+                  buff←¯1↑ps.log
+                  ps.log←¯1↓ps.log
                   ShowLog'Function "Initial_',currentGroup,'" found and executed but did not return a 1'
                   noOf←+/∨/('_',currentGroup,'_')⍷↑(i-1)↓ps.list
                   ShowLog'Therefore ',(⍕noOf),' member',((1<noOf)/'s'),' of the group "',currentGroup,'" will not be executed'
                   :If ps.guiFlag
                       ps.ref2Gui.∆n.Grid.Values[(i-1)+⍳noOf;4]←⊂'Prevented by Initial_',currentGroup
                   :EndIf
+                  ps.log,←buff
                   i+←noOf-1
                   continueFlag←1
               :Else
+                  buff←¯1↑ps.log
+                  ps.log←¯1↓ps.log
                   ShowLog'Function "Initial_',currentGroup,'" found and successfully executed'
+                  ps.log,←buff
               :EndIf
           :EndIf
       :EndIf

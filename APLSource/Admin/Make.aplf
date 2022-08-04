@@ -1,0 +1,4 @@
+ Make flag
+ :If flag
+     ⎕SE.MakeHelpers.CreateTatinPackageFromSingleScript ##.WinReg
+ :EndIf

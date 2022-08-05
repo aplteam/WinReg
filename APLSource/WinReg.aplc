@@ -29,11 +29,13 @@
 
     ∇ R←Version
       :Access Public Shared
-      R←'WinReg' '5.0.2+21' '2021-03-02'
+      R←'WinReg' '5.0.4+22' '2021-08-05'
     ∇
 
     ∇ History
       :Access Public Shared
+      ⍝ * 5.0.4 ⋄ 2022-08-05
+      ⍝   * Bug fix in `GetValue`
       ⍝ * 5.0.3 ⋄ 2022-08-04
       ⍝   * "Author" information updated
       ⍝   * New "Make"
@@ -230,17 +232,14 @@
       :Case REG_DWORD
           '∆RegQueryValueEx'⎕NA'I ADVAPI32.dll.C32|RegQueryValueEx* U <0T I >I4 >I4 =I4'
       :Case REG_QWORD
-          '∆RegQueryValueEx'⎕NA'I ADVAPI32.dll.C32|RegQueryValueEx* U <0T I >I8 >I8 =I8'
+          '∆RegQueryValueEx'⎕NA'I ADVAPI32.dll.C32|RegQueryValueEx* U <0T I >U4 >I8 =U4'
       :CaseList REG_SZ,REG_EXPAND_SZ,REG_MULTI_SZ
           '∆RegQueryValueEx'⎕NA'I ADVAPI32.dll.C32|RegQueryValueEx* U <0T I =I >T[] =I4'
       :Else
           ('WinReg error: unsupported data type: ',GetTypeAsStringFrom type)⎕SIGNAL 11
       :EndSelect
       :Repeat
-          ⍝ The following caused trouble in 2022-08 when type was expected to be 11 but was
-          ⍝ ¯3.61700864535665E18 instead, but the original "type" was okay.
           (rc type data length)←∆RegQueryValueEx handle value 0 bufSize bufSize bufSize
-          ⍝(rc data length)←{⍵[1 3 4]}∆RegQueryValueEx handle value 0 bufSize bufSize bufSize
           bufSize+←1024
       :Until (ERROR_MORE_DATA≠rc)
       errMsg←''

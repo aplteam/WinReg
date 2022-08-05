@@ -1,7 +1,7 @@
  Prepare;testPath;testFilename;ask;answer
  ⎕IO←1 ⋄ ⎕ML←1
  T←⎕NEW Tester2 ⎕THIS
- testPath←(⊃1 ⎕NPARTS''),'TestResults'
+ testPath←##.CiderConfig.HOME,'/TestResults'
  testFilename←testPath,'/CodeCoverage'
  :If ⎕NEXISTS testPath
      :If ⎕NEXISTS testFilename,'.dcf'

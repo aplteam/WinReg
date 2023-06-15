@@ -8,4 +8,3 @@ conga.crash
 !/packages_dev/apl-dependencies.txt
 !/packages_dev/apl-buildlist.json
 /Dist/
-/TestResults/

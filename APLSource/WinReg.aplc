@@ -27,13 +27,30 @@
 
     ⎕ML←1 ⋄ ⎕IO←1
 
-    ∇ R←Version
+    ∇ r←Version
       :Access Public Shared
-      R←'WinReg' '5.0.4+22' '2021-08-05'
+    ⍝ Returns the version number from `TatinVars` if possible.
+    ⍝ See also `History`
+      :If 0<⎕NC'TatinVars.CONFIG'
+          r←(⎕JSON⍠('Dialect' 'JSON5')⊢TatinVars.CONFIG).version
+      :ElseIf 0<##.⎕NC'TatinVars.CONFIG'
+          r←(⎕JSON⍠('Dialect' 'JSON5')⊢##.TatinVars.CONFIG).version
+      :Else
+    ⍝ When a script was not loaded with Tatin, there will be no namespace `TatinVars`.
+    ⍝ In such cases we cannot provide a version number, so we return just ''.
+          r←''
+      :EndIf
     ∇
 
     ∇ History
       :Access Public Shared
+      ⍝ * 6.0.0 ⋄ 2024-11-30
+      ⍝   * SYNTAX CHANGE: `Version` now returns just a character vector: 
+      ⍝     the version number according to the package config file 
+      ⍝   * `Make` polished
+      ⍝   * Packages updated
+      ⍝ * 5.1.0 ⋄ 2024-11-30
+      ⍝   * Packages updated
       ⍝ * 5.0.4 ⋄ 2022-08-05
       ⍝   * Bug fix in `GetValue`
       ⍝ * 5.0.3 ⋄ 2022-08-04

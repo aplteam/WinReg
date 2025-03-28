@@ -35,6 +35,9 @@ div.code-block {
     margin: 0.5em 0.5em 0.5em 0.5em;
     padding: 0.5em;
 }
+div.code-block.missing {
+    background-color: #fa605254;
+}
 div.code-block code {display: block; white-space: pre-wrap; margin:0; padding:0; word-wrap: break-word;}
 .emphasize { font-weight: 800;}
 ul li, ol li {margin: 0.7em 0.2em;}
@@ -124,7 +127,7 @@ ul li, ol li {margin: 8pt 3pt;}
 <tr><th>Executed at</th><th>APLVersion</th><th>Memory (MB)</th></tr>
 </thead>
 <tbody>
-<tr><td>2022-08-05 12:53:21</td><td>Windows-64 ⋄ 18.2.45427.0 ⋄ W ⋄ Development</td><td>55</td></tr>
+<tr><td>2025-03-28 13:41:13</td><td>Windows-64 ⋄ 19.0.50771.0 ⋄ W ⋄ Development ⋄ Unicode</td><td>108</td></tr>
 </tbody>
 </table>
 <p>Overall 88% of the testable code is covered.</p>
@@ -136,52 +139,48 @@ ul li, ol li {margin: 8pt 3pt;}
 <tr><th style="text-align:left;">Function/Operator</th><th style="text-align:left;">Lines not executed</th><th style="text-align:left;">Coverage</th><th style="text-align:right;">≢</th></tr>
 </thead>
 <tbody>
-<tr class="uncovered"><td>#.WinReg.WinReg.Version</td><td>2</td><td>0</td><td>1</td></tr>
-<tr><td>#.WinReg.WinReg.CheckPath</td><td>6←≢9-13,15</td><td>57</td><td>14</td></tr>
-<tr><td>#.WinReg.WinReg.Get_HKEY_From</td><td>7←≢5,9,11,13,15,17,22</td><td>63</td><td>19</td></tr>
-<tr><td>#.WinReg.WinReg.GetAllNamesAndValues</td><td>5←≢20,34-36,38</td><td>77</td><td>22</td></tr>
-<tr><td>#.WinReg.WinReg.GetAllSubKeyNames</td><td>5←≢4-5,10,24-25</td><td>77</td><td>22</td></tr>
-<tr><td>#.WinReg.WinReg.GetTreeWithValues</td><td>12, 16, 19</td><td>82</td><td>17</td></tr>
-<tr><td>#.WinReg.WinReg.HandleDataType</td><td>9, 13</td><td>83</td><td>12</td></tr>
-<tr><td>#.WinReg.WinReg.GetValue</td><td>6←≢32-33,35,49,57,59</td><td>87</td><td>45</td></tr>
-<tr><td>#.WinReg.WinReg.OpenAndCreateKey</td><td>12</td><td>88</td><td>8</td></tr>
-<tr><td>#.WinReg.WinReg.GetString</td><td>5←≢27,30-31,47,56</td><td>89</td><td>46</td></tr>
-<tr><td>#.WinReg.WinReg.OpenKey</td><td>14</td><td>89</td><td>9</td></tr>
-<tr><td>#.WinReg.WinReg.GetAllValueNames</td><td>38, 39</td><td>91</td><td>23</td></tr>
-<tr><td>#.WinReg.WinReg.CopyTree</td><td>16, 25</td><td>91</td><td>23</td></tr>
-<tr><td>#.WinReg.WinReg.PutValue</td><td>21, 32, 33</td><td>92</td><td>37</td></tr>
-<tr><td>#.WinReg.WinReg.DeleteValue</td><td>19</td><td>92</td><td>13</td></tr>
-<tr><td>#.WinReg.WinReg.DeleteSubKeyTree</td><td>23</td><td>93</td><td>15</td></tr>
-<tr><td>#.WinReg.WinReg.DoesValueExist</td><td>17</td><td>93</td><td>15</td></tr>
-<tr><td>#.WinReg.WinReg.GetTree</td><td>14</td><td>94</td><td>16</td></tr>
-<tr><td>#.WinReg.WinReg.DeleteSubKey</td><td>23</td><td>94</td><td>16</td></tr>
-<tr><td>#.WinReg.WinReg.PutBinary</td><td>32</td><td>95</td><td>20</td></tr>
-<tr><td>#.WinReg.WinReg.KeyInfo</td><td>19</td><td>95</td><td>19</td></tr>
-<tr><td>#.WinReg.WinReg.PutString</td><td>29</td><td>97</td><td>30</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.History</td><td></td><td>100</td><td>0</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.ListError</td><td></td><td>100</td><td>2</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.ListReg</td><td></td><td>100</td><td>2</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.GetAllValues</td><td></td><td>100</td><td>1</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.DoesKeyExist</td><td></td><td>100</td><td>4</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.GetTypeAsStringFrom</td><td></td><td>100</td><td>3</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.GetErrorAsStringFrom</td><td></td><td>100</td><td>3</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.Close</td><td></td><td>100</td><td>4</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.GetDyalogRegPath</td><td></td><td>100</td><td>5</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.GetVersion</td><td></td><td>100</td><td>4</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.ExpandEnv</td><td></td><td>100</td><td>3</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.GetAsString</td><td></td><td>100</td><td>4</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.ConvertErrorCode</td><td></td><td>100</td><td>6</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.List</td><td></td><td>100</td><td>2</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.default</td><td></td><td>100</td><td>0</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.verbose</td><td></td><td>100</td><td>0</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.depth</td><td></td><td>100</td><td>0</td></tr>
-<tr class="fullyCovered"><td>#.WinReg.WinReg.accessRights</td><td></td><td>100</td><td>0</td></tr>
+<tr><td><a href="#listing_1" title="Link to listing">#.WinReg.WinReg.CheckPath</a></td><td>6←≢9-13,15</td><td>57</td><td>14</td></tr>
+<tr><td><a href="#listing_2" title="Link to listing">#.WinReg.WinReg.Version</a></td><td>5, 11</td><td>60</td><td>5</td></tr>
+<tr><td><a href="#listing_3" title="Link to listing">#.WinReg.WinReg.Get_HKEY_From</a></td><td>7←≢5,9,11,13,15,17,22</td><td>63</td><td>19</td></tr>
+<tr><td><a href="#listing_4" title="Link to listing">#.WinReg.WinReg.GetAllNamesAndValues</a></td><td>5←≢20,34-36,38</td><td>77</td><td>22</td></tr>
+<tr><td><a href="#listing_5" title="Link to listing">#.WinReg.WinReg.GetAllSubKeyNames</a></td><td>5←≢4-5,10,24-25</td><td>77</td><td>22</td></tr>
+<tr><td><a href="#listing_6" title="Link to listing">#.WinReg.WinReg.GetTreeWithValues</a></td><td>12, 16, 19</td><td>82</td><td>17</td></tr>
+<tr><td><a href="#listing_7" title="Link to listing">#.WinReg.WinReg.HandleDataType</a></td><td>9, 13</td><td>83</td><td>12</td></tr>
+<tr><td><a href="#listing_8" title="Link to listing">#.WinReg.WinReg.GetValue</a></td><td>6←≢32-33,35,49,57,59</td><td>87</td><td>45</td></tr>
+<tr><td><a href="#listing_9" title="Link to listing">#.WinReg.WinReg.OpenAndCreateKey</a></td><td>12</td><td>88</td><td>8</td></tr>
+<tr><td><a href="#listing_10" title="Link to listing">#.WinReg.WinReg.GetString</a></td><td>5←≢27,30-31,47,56</td><td>89</td><td>46</td></tr>
+<tr><td><a href="#listing_11" title="Link to listing">#.WinReg.WinReg.OpenKey</a></td><td>14</td><td>89</td><td>9</td></tr>
+<tr><td><a href="#listing_12" title="Link to listing">#.WinReg.WinReg.GetAllValueNames</a></td><td>38, 39</td><td>91</td><td>23</td></tr>
+<tr><td><a href="#listing_13" title="Link to listing">#.WinReg.WinReg.CopyTree</a></td><td>16, 25</td><td>91</td><td>23</td></tr>
+<tr><td><a href="#listing_14" title="Link to listing">#.WinReg.WinReg.PutValue</a></td><td>21, 32, 33</td><td>92</td><td>37</td></tr>
+<tr><td><a href="#listing_15" title="Link to listing">#.WinReg.WinReg.DeleteValue</a></td><td>19</td><td>92</td><td>13</td></tr>
+<tr><td><a href="#listing_16" title="Link to listing">#.WinReg.WinReg.DeleteSubKeyTree</a></td><td>23</td><td>93</td><td>15</td></tr>
+<tr><td><a href="#listing_17" title="Link to listing">#.WinReg.WinReg.DoesValueExist</a></td><td>17</td><td>93</td><td>15</td></tr>
+<tr><td><a href="#listing_18" title="Link to listing">#.WinReg.WinReg.GetTree</a></td><td>14</td><td>94</td><td>16</td></tr>
+<tr><td><a href="#listing_19" title="Link to listing">#.WinReg.WinReg.DeleteSubKey</a></td><td>23</td><td>94</td><td>16</td></tr>
+<tr><td><a href="#listing_20" title="Link to listing">#.WinReg.WinReg.PutBinary</a></td><td>32</td><td>95</td><td>20</td></tr>
+<tr><td><a href="#listing_21" title="Link to listing">#.WinReg.WinReg.KeyInfo</a></td><td>19</td><td>95</td><td>19</td></tr>
+<tr><td><a href="#listing_22" title="Link to listing">#.WinReg.WinReg.PutString</a></td><td>29</td><td>97</td><td>30</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_23" title="Link to listing">#.WinReg.WinReg.History</a></td><td></td><td>100</td><td>0</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_24" title="Link to listing">#.WinReg.WinReg.ListError</a></td><td></td><td>100</td><td>2</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_25" title="Link to listing">#.WinReg.WinReg.ListReg</a></td><td></td><td>100</td><td>2</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_26" title="Link to listing">#.WinReg.WinReg.GetAllValues</a></td><td></td><td>100</td><td>1</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_27" title="Link to listing">#.WinReg.WinReg.DoesKeyExist</a></td><td></td><td>100</td><td>4</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_28" title="Link to listing">#.WinReg.WinReg.GetTypeAsStringFrom</a></td><td></td><td>100</td><td>3</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_29" title="Link to listing">#.WinReg.WinReg.GetErrorAsStringFrom</a></td><td></td><td>100</td><td>3</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_30" title="Link to listing">#.WinReg.WinReg.Close</a></td><td></td><td>100</td><td>4</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_31" title="Link to listing">#.WinReg.WinReg.GetDyalogRegPath</a></td><td></td><td>100</td><td>5</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_32" title="Link to listing">#.WinReg.WinReg.GetVersion</a></td><td></td><td>100</td><td>4</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_33" title="Link to listing">#.WinReg.WinReg.ExpandEnv</a></td><td></td><td>100</td><td>3</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_34" title="Link to listing">#.WinReg.WinReg.GetAsString</a></td><td></td><td>100</td><td>4</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_35" title="Link to listing">#.WinReg.WinReg.ConvertErrorCode</a></td><td></td><td>100</td><td>6</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_36" title="Link to listing">#.WinReg.WinReg.List</a></td><td></td><td>100</td><td>2</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_37" title="Link to listing">#.WinReg.WinReg.default</a></td><td></td><td>100</td><td>0</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_38" title="Link to listing">#.WinReg.WinReg.verbose</a></td><td></td><td>100</td><td>0</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_39" title="Link to listing">#.WinReg.WinReg.depth</a></td><td></td><td>100</td><td>0</td></tr>
+<tr class="fullyCovered"><td><a href="#listing_40" title="Link to listing">#.WinReg.WinReg.accessRights</a></td><td></td><td>100</td><td>0</td></tr>
 </tbody>
 </table>
-</div>
-<div id="footer">
-<hr>
-<p>Created by "CodeCoverage" version 0.9.1+46 from 2021-10-29</p>
 </div>
 <script>
 $(document).ready(function() {
@@ -193,9 +192,18 @@ $(document).ready(function() {
         fixedHeader: true,
         order: [2,"asc"],
         dom: "Bft",
+        drawCallback: function( settings ) {
+             var api = this.api();
+             $('.header[id^="listing_"]').next().addBack().css("display","none");
+             api.rows( {page:"current"} ).data().each(function(data){
+              id = data[0];
+              id = id.match(/"(\#.*?)"/);
+              if (id){$(id[1]).next().addBack().css("display","block");}
+             })
+        },      
         buttons: [
         {
-            text: "Partly covered (21)",
+            text: "Partly covered (22)",
             titleAttr: "50%",
             className: "active",
             action: function ( e, dt, node, config ) {
@@ -209,7 +217,7 @@ $(document).ready(function() {
             }
         },
         {
-            text: "Uncovered (1)",
+            text: "Uncovered (0)",
             titleAttr: "0%",
             className: "active",
             action: function ( e, dt, node, config ) {
@@ -267,6 +275,977 @@ $(document).ready(function() {
 
 } );    
 </script>
+<h2>Listings</h2>
+<code class="header" id="listing_1">#.WinReg.WinReg.CheckPath &mdash; 57%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  path←CheckPath path</code>
+<code> [1]     ⍝ Check the path, replace shortcuts by proper names and establish default if needed</code>
+<code> [2]   :If 'HK'≡2↑path</code>
+<code> [3]       (HKEY path2)←{⍵{((¯1+⍵)↑⍺)(⍵↓⍺)}⍵⍳'\'}path</code>
+<code> [4]       :If 'HKEY_'{⍺≢⍵↑⍨⍴⍺}HKEY</code>
+<code> [5]           :Select HKEY</code>
+<code> [6]           :Case 'HKCU'</code>
+<code> [7]               path←'HKEY_CURRENT_USER\',path2</code>
+<code> [8]           :Case 'HKCR'</code>
+<code class="emphasize">→[9]               path←'HKEY_CLASSES_ROOT\',path2</code>
+<code class="emphasize">→[10]          :Case 'HKLM'</code>
+<code class="emphasize">→[11]              path←'HKEY_LOCAL_MACHINE\',path2</code>
+<code class="emphasize">→[12]          :Case 'HKU'</code>
+<code class="emphasize">→[13]              path←'HKEY_USERS\',path2</code>
+<code> [14]          :Else</code>
+<code class="emphasize">→[15]              11 ⎕SIGNAL⍨'WinReg error: invalid Registry key'</code>
+<code> [16]          :EndSelect</code>
+<code> [17]      :EndIf</code>
+<code> [18]  :Else</code>
+<code> [19]      path←'HKEY_CURRENT_USER\',path</code>
+<code> [20]  :EndIf</code>
+</div>
+<code class="header" id="listing_2">#.WinReg.WinReg.Version &mdash; 60%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←Version</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]      ⍝ Returns the version number from `TatinVars` if possible.</code>
+<code> [3]      ⍝ See also `History`</code>
+<code> [4]   :If 0&lt;⎕NC'TatinVars.CONFIG'</code>
+<code class="emphasize">→[5]       r←(⎕JSON⍠('Dialect' 'JSON5')⊢TatinVars.CONFIG).version</code>
+<code> [6]   :ElseIf 0&lt;##.⎕NC'TatinVars.CONFIG'</code>
+<code> [7]       r←(⎕JSON⍠('Dialect' 'JSON5')⊢##.TatinVars.CONFIG).version</code>
+<code> [8]   :Else</code>
+<code> [9]      ⍝ When a script was not loaded with Tatin, there will be no namespace `TatinVars`.</code>
+<code> [10]     ⍝ In such cases we cannot provide a version number, so we return just ''.</code>
+<code class="emphasize">→[11]      r←''</code>
+<code> [12]  :EndIf</code>
+</div>
+<code class="header" id="listing_3">#.WinReg.WinReg.Get_HKEY_From &mdash; 63%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  HKEY←Get_HKEY_From Type</code>
+<code> [1]   Type←{0=≢⍵:'HKEY_CURRENT_USER' ⋄ ⍵}Type</code>
+<code> [2]   :If ' '=1↑0⍴Type</code>
+<code> [3]       :Select Type</code>
+<code> [4]       :Case 'HKEY_CLASSES_ROOT'</code>
+<code class="emphasize">→[5]           HKEY←2147483648             ⍝ HEX 0x80000000</code>
+<code> [6]       :Case 'HKEY_CURRENT_USER'</code>
+<code> [7]           HKEY←2147483649             ⍝ HEX 0x80000001</code>
+<code> [8]       :Case 'HKEY_LOCAL_MACHINE'</code>
+<code class="emphasize">→[9]           HKEY←2147483650             ⍝ HEX 0x80000002</code>
+<code> [10]      :Case 'HKEY_USERS'</code>
+<code class="emphasize">→[11]          HKEY←2147483651             ⍝ HEX 0x80000003</code>
+<code> [12]      :Case 'HKEY_PERFORMANCE_DATA'</code>
+<code class="emphasize">→[13]          HKEY←2147483652             ⍝ HEX 0x80000004</code>
+<code> [14]      :Case 'HKEY_CURRENT_CONFIG'</code>
+<code class="emphasize">→[15]          HKEY←2147483653             ⍝ HEX 0x80000050</code>
+<code> [16]      :Case 'HKEY_DYN_DATA'</code>
+<code class="emphasize">→[17]          HKEY←2147483654             ⍝ HEX 0x80000060</code>
+<code> [18]      :Else</code>
+<code> [19]          'WinReg error: invalid Keyword'⎕SIGNAL 11</code>
+<code> [20]      :EndSelect</code>
+<code> [21]  :Else</code>
+<code class="emphasize">→[22]      HKEY←Type</code>
+<code> [23]  :EndIf</code>
+</div>
+<code class="header" id="listing_4">#.WinReg.WinReg.GetAllNamesAndValues &mdash; 77%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←GetAllNamesAndValues y</code>
+<code> [1]      ⍝ This method gets all values for a given subkey.</code>
+<code> [2]      ⍝</code>
+<code> [3]      ⍝ `r` is a matrix with:</code>
+<code> [4]      ⍝ |[;1]| Value name</code>
+<code> [5]      ⍝ |[;2]| The data</code>
+<code> [6]      ⍝ |[;3]| Error message (for example unspported data type)</code>
+<code> [7]      ⍝</code>
+<code> [8]      ⍝ `⍵` can be one of:</code>
+<code> [9]      ⍝</code>
+<code> [10]     ⍝ * A string representing a path (sub key)</code>
+<code> [11]     ⍝ * A handle</code>
+<code> [12]  :Access Public Shared</code>
+<code> [13]  :If (0=1↑0⍴y)∧1=≢y       ⍝ Is it a handle?</code>
+<code> [14]      yIsHandle←1</code>
+<code> [15]      handle←y</code>
+<code> [16]  :ElseIf (' '=1↑0⍴y)∧1=≡y  ⍝ Is it a path</code>
+<code> [17]      handle←OpenKey y</code>
+<code> [18]      yIsHandle←0</code>
+<code> [19]  :Else</code>
+<code class="emphasize">→[20]      'WinReg error: invalid right argument'⎕SIGNAL 11</code>
+<code> [21]  :EndIf</code>
+<code> [22]  :If 0=handle</code>
+<code> [23]      r←0 3⍴''</code>
+<code> [24]      :Return</code>
+<code> [25]  :EndIf</code>
+<code> [26]  noof←≢names←GetAllValueNames handle</code>
+<code> [27]  r←(noof,3)⍴''</code>
+<code> [28]  :If 0≠≢r</code>
+<code> [29]      r[;1]←names</code>
+<code> [30]      :For i :In ⍳≢names</code>
+<code> [31]          :Trap 11</code>
+<code> [32]              r[i;2]←⊂GetValue handle(i⊃names)</code>
+<code> [33]          :Else</code>
+<code class="emphasize">→[34]              qdmx←⎕DMX</code>
+<code class="emphasize">→[35]              :If ∨/'WinReg error: unsupported data type'⍷qdmx.EM</code>
+<code class="emphasize">→[36]                  r[i;3]←⊂'Failed due to unsupported data type: ',{##.APLTreeUtils2.DMB ⍵↓⍨1++/2&gt;+\⍵=':'}qdmx.EM</code>
+<code> [37]              :Else</code>
+<code class="emphasize">→[38]                  r[i;3]←⊂qdmx.EM,'; rc=',⍕qdmx.EN</code>
+<code> [39]              :EndIf</code>
+<code> [40]          :EndTrap</code>
+<code> [41]      :EndFor</code>
+<code> [42]  :EndIf</code>
+<code> [43]  Close(~yIsHandle)/handle</code>
+</div>
+<code class="header" id="listing_5">#.WinReg.WinReg.GetAllSubKeyNames &mdash; 77%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←GetAllSubKeyNames y</code>
+<code> [1]      ⍝ This method returns a vector of strings with the namesof all sub keys for a given key.</code>
+<code> [2]   :Access Public Shared</code>
+<code> [3]   :If (0=1↑0⍴y)∧1=≢y       ⍝ Is it a handle?</code>
+<code class="emphasize">→[4]       yIsHandle←1</code>
+<code class="emphasize">→[5]       handle←y</code>
+<code> [6]   :ElseIf (' '=1↑0⍴y)∧1=≡y  ⍝ Is it a path</code>
+<code> [7]       handle←OpenKey y</code>
+<code> [8]       yIsHandle←0</code>
+<code> [9]   :Else</code>
+<code class="emphasize">→[10]      'WinReg error: invalid right argument'⎕SIGNAL 11</code>
+<code> [11]  :EndIf</code>
+<code> [12]  '∆RegEnumKey'⎕NA'I ADVAPI32|RegEnumKeyEx* I4 I4 &gt;T[] =P P P P P'</code>
+<code> [13]  flag←i←0</code>
+<code> [14]  bufSize←1024×1+80=⎕DR''</code>
+<code> [15]  r←''</code>
+<code> [16]  :Repeat</code>
+<code> [17]      (rc name length)←∆RegEnumKey handle,i,bufSize,bufSize,0 0 0 0</code>
+<code> [18]      :If rc=ERROR_SUCCESS</code>
+<code> [19]          r,←⊂length↑name</code>
+<code> [20]          i+←1</code>
+<code> [21]      :ElseIf rc∊ERROR_NO_MORE_ITEMS ERROR_INVALID_HANDLE</code>
+<code> [22]          flag←1</code>
+<code> [23]      :Else</code>
+<code class="emphasize">→[24]          Close(~yIsHandle)/handle</code>
+<code class="emphasize">→[25]          ('WinReg error! ',ConvertErrorCode rc)⎕SIGNAL 11</code>
+<code> [26]      :EndIf</code>
+<code> [27]  :Until flag</code>
+<code> [28]  Close(~yIsHandle)/handle</code>
+</div>
+<code class="header" id="listing_6">#.WinReg.WinReg.GetTreeWithValues &mdash; 82%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←{depth}GetTreeWithValues key</code>
+<code> [1]      ⍝ Takes the name of a key (but no handle!) and returns a (possibly empty) matrix with:</code>
+<code> [2]      ⍝ |[;1]| depth</code>
+<code> [3]      ⍝ |[;2]| fully qualified name</code>
+<code> [4]      ⍝ |[;3]| value data (empty for sub-keys)</code>
+<code> [5]      ⍝ |[;4]| error messages, for example in case of unsupported data types.</code>
+<code> [6]      ⍝ Note that sub-keys end with a backslash.</code>
+<code> [7]      ⍝</code>
+<code> [8]      ⍝ See `GetTree` if you don't need the data of the values.</code>
+<code> [9]   :Access Public Shared</code>
+<code> [10]  depth←{0=⎕NC ⍵:0 ⋄ ⍎⍵}'depth'</code>
+<code> [11]  :If (0=1↑0⍴key)∧1=≢key                   ⍝ Is it a valid handle?</code>
+<code class="emphasize">→[12]      11/⍨⎕SIGNAL'WinReg error: invalid right argument'</code>
+<code> [13]  :ElseIf (' '=1↑0⍴key)∧1=≡key              ⍝ Is it a path?</code>
+<code> [14]      handle←OpenKey key</code>
+<code> [15]  :Else</code>
+<code class="emphasize">→[16]      'WinReg error: invalid right argument'⎕SIGNAL 11</code>
+<code> [17]  :EndIf</code>
+<code> [18]  :If handle=0</code>
+<code class="emphasize">→[19]      11 ⎕SIGNAL⍨'WinReg error: key does not exist'</code>
+<code> [20]  :Else</code>
+<code> [21]      r←1 4⍴depth(key,('\'≠¯1↑key)/'\')'' ''</code>
+<code> [22]      :If 0≠≢allValues←GetAllNamesAndValues handle</code>
+<code> [23]          allValues[;1]←(⊂key,('\'≠¯1↑key)/'\'),¨allValues[;1]</code>
+<code> [24]          r⍪←(1+depth),allValues</code>
+<code> [25]      :EndIf</code>
+<code> [26]      :If 0≠≢allSubKeys←GetAllSubKeyNames key</code>
+<code> [27]          :For thisSubKey :In allSubKeys</code>
+<code> [28]              :If 0≠≢buffer←(depth+1)GetTreeWithValues key,(('\'≠¯1↑key)/'\'),thisSubKey</code>
+<code> [29]                  r⍪←buffer</code>
+<code> [30]              :EndIf</code>
+<code> [31]          :EndFor</code>
+<code> [32]      :EndIf</code>
+<code> [33]      Close handle</code>
+<code> [34]  :EndIf</code>
+</div>
+<code class="header" id="listing_7">#.WinReg.WinReg.HandleDataType &mdash; 83%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←HandleDataType(type length data)</code>
+<code> [1]   :Select type</code>
+<code> [2]   :Case REG_SZ</code>
+<code> [3]       r←(¯1+length÷2)↑data</code>
+<code> [4]   :CaseList REG_DWORD,REG_QWORD</code>
+<code> [5]       r←data</code>
+<code> [6]   :Case REG_BINARY</code>
+<code> [7]       r←length↑data</code>
+<code> [8]   :Case REG_EXPAND_SZ</code>
+<code class="emphasize">→[9]       r←ExpandEnv(¯1+length÷2)↑data</code>
+<code> [10]  :Case REG_MULTI_SZ</code>
+<code> [11]      r←Partition(¯1+length÷2)↑data</code>
+<code> [12]  :Else</code>
+<code class="emphasize">→[13]      ('Data type is not supported: ',⍕type)⎕SIGNAL 11</code>
+<code> [14]  :EndSelect</code>
+</div>
+<code class="header" id="listing_8">#.WinReg.WinReg.GetValue &mdash; 87%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←{default}GetValue y</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]      ⍝ `⍵` can be either a vector of length one or two:</code>
+<code> [3]      ⍝</code>
+<code> [4]      ⍝ * If length 1:</code>
+<code> [5]      ⍝   * [1] path (subkey + value name)</code>
+<code> [6]      ⍝ * If length 2:</code>
+<code> [7]      ⍝   * [1] handle to the sub key</code>
+<code> [8]      ⍝   * [2] value name</code>
+<code> [9]      ⍝</code>
+<code> [10]     ⍝ Returns the data saved as "path" in the Registry, or "Default". The data type is</code>
+<code> [11]     ⍝ determined from the Registry.</code>
+<code> [12]  default←{0&lt;⎕NC ⍵:⍎⍵ ⋄ 0}'default'</code>
+<code> [13]  r←default</code>
+<code> [14]  yIsHandle←0</code>
+<code> [15]  'WinReg error: invalid right argument'⎕SIGNAL 11/⍨(~0 1∊⍨≡y)∧2≠≢y</code>
+<code> [16]  'WinReg error: right argument must not be empty'⎕SIGNAL 11/⍨0=≢y</code>
+<code> [17]  'WinReg error: invalid right argument'⎕SIGNAL 11/⍨(~(⎕DR y)∊80 82)∧2≠≢y</code>
+<code> [18]  :If 2=≢y</code>
+<code> [19]  :AndIf yIsHandle←0=1↑0⍴1⊃y          ⍝ Is the first item possibly a handle?</code>
+<code> [20]      (handle value)←y</code>
+<code> [21]  :Else</code>
+<code> [22]      (subKey value)←##.APLTreeUtils2.SplitPath y</code>
+<code> [23]      :If ~DoesKeyExist subKey ⋄ :Return ⋄ :EndIf</code>
+<code> [24]      handle←OpenKey subKey</code>
+<code> [25]  :EndIf</code>
+<code> [26]  '∆RegQueryValueEx'⎕NA'I ADVAPI32.dll.C32|RegQueryValueEx* U &lt;0T I &gt;I &gt;I4 =I4'</code>
+<code> [27]  :If (,'\')≡,value</code>
+<code> [28]      value←''       ⍝ Default value has no value name</code>
+<code> [29]  :EndIf</code>
+<code> [30]  (rc type)←2↑∆RegQueryValueEx handle value 0 0 0 0</code>
+<code> [31]  :If rc=ERROR_FILE_NOT_FOUND</code>
+<code class="emphasize">→[32]      r←default</code>
+<code class="emphasize">→[33]      :Return</code>
+<code> [34]  :ElseIf ~rc∊ERROR_SUCCESS,ERROR_MORE_DATA,ERROR_UNSUPPORTED_TYPE  ⍝ Yes, I know - but this sometimes happens although everything is fine!!</code>
+<code class="emphasize">→[35]      errMsg←'Error, rc=',⍕rc</code>
+<code> [36]  :EndIf</code>
+<code> [37]  errMsg←''</code>
+<code> [38]  bufSize←1024</code>
+<code> [39]  :Select type</code>
+<code> [40]  :Case REG_BINARY</code>
+<code> [41]      '∆RegQueryValueEx'⎕NA'I ADVAPI32.dll.C32|RegQueryValueEx* U &lt;0T I &gt;I4 &gt;I1[] =I4 '</code>
+<code> [42]  :Case REG_DWORD</code>
+<code> [43]      '∆RegQueryValueEx'⎕NA'I ADVAPI32.dll.C32|RegQueryValueEx* U &lt;0T I &gt;I4 &gt;I4 =I4'</code>
+<code> [44]  :Case REG_QWORD</code>
+<code> [45]      '∆RegQueryValueEx'⎕NA'I ADVAPI32.dll.C32|RegQueryValueEx* U &lt;0T I &gt;U4 &gt;I8 =U4'</code>
+<code> [46]  :CaseList REG_SZ,REG_EXPAND_SZ,REG_MULTI_SZ</code>
+<code> [47]      '∆RegQueryValueEx'⎕NA'I ADVAPI32.dll.C32|RegQueryValueEx* U &lt;0T I =I &gt;T[] =I4'</code>
+<code> [48]  :Else</code>
+<code class="emphasize">→[49]      ('WinReg error: unsupported data type: ',GetTypeAsStringFrom type)⎕SIGNAL 11</code>
+<code> [50]  :EndSelect</code>
+<code> [51]  :Repeat</code>
+<code> [52]      (rc type data length)←∆RegQueryValueEx handle value 0 bufSize bufSize bufSize</code>
+<code> [53]      bufSize+←1024</code>
+<code> [54]  :Until (ERROR_MORE_DATA≠rc)</code>
+<code> [55]  errMsg←''</code>
+<code> [56]  :If rc=ERROR_FILE_NOT_FOUND</code>
+<code class="emphasize">→[57]      r←default</code>
+<code> [58]  :ElseIf ~rc∊ERROR_SUCCESS,ERROR_UNSUPPORTED_TYPE  ⍝ Yes, I know - but this sometimes happens although everything is fine!!</code>
+<code class="emphasize">→[59]      errMsg←'WinReg error: ',ConvertErrorCode rc</code>
+<code> [60]  :Else</code>
+<code> [61]      r←HandleDataType type length data</code>
+<code> [62]  :EndIf</code>
+<code> [63]  Close(~yIsHandle)/handle</code>
+<code> [64]  errMsg ⎕SIGNAL 11/⍨0≠≢errMsg</code>
+</div>
+<code class="header" id="listing_9">#.WinReg.WinReg.OpenAndCreateKey &mdash; 88%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  handle←OpenAndCreateKey path</code>
+<code> [1]      ⍝ Opens a key. If the key does not already exist it is going to be created.</code>
+<code> [2]      ⍝</code>
+<code> [3]      ⍝ See also: [`OpenKey`](#).</code>
+<code> [4]      ⍝</code>
+<code> [5]      ⍝ Note that this method needs KEY_ALL_ACCESS otherwise it cannot work properly.</code>
+<code> [6]   :Access Public Shared</code>
+<code> [7]   path←CheckPath path</code>
+<code> [8]   :If 'HKEY_'≡5↑path</code>
+<code> [9]       (HKEY subKey)←{a←⍵⍳'\' ⋄ ((a-1)↑⍵)(a↓⍵)}path</code>
+<code> [10]      HKEY←Get_HKEY_From HKEY</code>
+<code> [11]  :Else</code>
+<code class="emphasize">→[12]      HKEY←Get_HKEY_From'HKEY_CURRENT_USER'  ⍝ Default</code>
+<code> [13]  :EndIf</code>
+<code> [14]  '∆RegCreateKeyEx'⎕NA'I ADVAPI32.dll.C32|RegCreateKeyEx* U &lt;0T I &lt;0T I I I &gt;U &gt;U'</code>
+<code> [15]  (rc handle newFlag)←∆RegCreateKeyEx HKEY subKey 0 '' 0 KEY_ALL_ACCESS 0 1 1</code>
+<code> [16]  ('WinReg error: opening/creating Registry key failed with ',ConvertErrorCode rc)⎕SIGNAL 11/⍨ERROR_SUCCESS≠rc</code>
+</div>
+<code class="header" id="listing_10">#.WinReg.WinReg.GetString &mdash; 89%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←{default}GetString y</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]      ⍝ Use this function in order to read a value of type REG_SZ or REG_EXPAND_SZ or REG_MULTI_SZ.</code>
+<code> [3]      ⍝</code>
+<code> [4]      ⍝ `⍵` can be one of:</code>
+<code> [5]      ⍝ * A simple string which is supposed to be a full path then (sub-key plus value name).</code>
+<code> [6]      ⍝ * A vector of length 2 with a handle to the sub-key in [1] and a value name in [2].</code>
+<code> [7]   default←{0&lt;⎕NC ⍵:⍎⍵ ⋄ ''}'default'</code>
+<code> [8]   r←default</code>
+<code> [9]   'WinReg error: invalid right argument'⎕SIGNAL 11/⍨(~0 1∊⍨≡y)∧2≠≢y</code>
+<code> [10]  'WinReg error: right argument must not be empty'⎕SIGNAL 11/⍨0=≢y</code>
+<code> [11]  'WinReg error: invalid right argument'⎕SIGNAL 11/⍨(~(⎕DR y)∊80 82)∧2≠≢y</code>
+<code> [12]  :If (2=≢y)∧(0=1↑0⍴1⊃,y)∧(' '=1↑0⍴2⊃,y)</code>
+<code> [13]      yIsHandle←1</code>
+<code> [14]      (handle value)←y</code>
+<code> [15]  :ElseIf 1=|≡y</code>
+<code> [16]      yIsHandle←0</code>
+<code> [17]      path←y</code>
+<code> [18]      (subKey value)←{⍵{((-⍵)↓⍺)((-⍵-1)↑⍺)}'\'⍳⍨⌽⍵}path</code>
+<code> [19]      subKey←CheckPath subKey</code>
+<code> [20]      :If '\'≠¯1↑path</code>
+<code> [21]      :AndIf ~DoesKeyExist subKey</code>
+<code> [22]          r←default</code>
+<code> [23]          :Return</code>
+<code> [24]      :EndIf</code>
+<code> [25]      handle←OpenKey subKey</code>
+<code> [26]  :Else</code>
+<code class="emphasize">→[27]      'WinReg error: invalid right argument'⎕SIGNAL 11</code>
+<code> [28]  :EndIf</code>
+<code> [29]  :If 0=handle</code>
+<code class="emphasize">→[30]      r←default</code>
+<code class="emphasize">→[31]      :Return</code>
+<code> [32]  :EndIf</code>
+<code> [33]  value←((,'\')≢,value)/value        ⍝ For access to the default value</code>
+<code> [34]  '∆RegQueryValueEx'⎕NA'I ADVAPI32.dll.C32|RegQueryValueEx* U &lt;0T I =I &gt;0T =I4'</code>
+<code> [35]  bufSize←1024</code>
+<code> [36]  :Repeat</code>
+<code> [37]      (rc type data bufSize)←∆RegQueryValueEx handle value 0 REG_SZ,bufSize bufSize</code>
+<code> [38]      :If type=REG_MULTI_SZ ⋄ :Leave ⋄ :EndIf</code>
+<code> [39]  :Until rc≠ERROR_MORE_DATA</code>
+<code> [40]  :If type=REG_EXPAND_SZ</code>
+<code> [41]      data←ExpandEnv data</code>
+<code> [42]  :ElseIf type=REG_MULTI_SZ</code>
+<code> [43]      '∆RegQueryValueEx'⎕NA'I ADVAPI32.dll.C32|RegQueryValueEx* U &lt;0T I =I &gt;T[] =I4'</code>
+<code> [44]      :Repeat</code>
+<code> [45]          (rc type data bufSize)←∆RegQueryValueEx handle value 0 REG_SZ,bufSize bufSize</code>
+<code> [46]          :If type=REG_MULTI_SZ ⋄ :Leave ⋄ :EndIf</code>
+<code class="emphasize">→[47]      :Until rc≠ERROR_MORE_DATA</code>
+<code> [48]      data←Partition(bufSize÷2)↑data</code>
+<code> [49]  :EndIf</code>
+<code> [50]  errMsg←''</code>
+<code> [51]  :If rc=ERROR_FILE_NOT_FOUND</code>
+<code> [52]      r←default</code>
+<code> [53]  :ElseIf rc=0</code>
+<code> [54]      r←data</code>
+<code> [55]  :Else</code>
+<code class="emphasize">→[56]      errMsg←'WinReg error: ',ConvertErrorCode rc</code>
+<code> [57]  :EndIf</code>
+<code> [58]  Close(~yIsHandle)/handle</code>
+<code> [59]  errMsg ⎕SIGNAL 11/⍨0≠≢errMsg</code>
+</div>
+<code class="header" id="listing_11">#.WinReg.WinReg.OpenKey &mdash; 89%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  handle←{accessRights}OpenKey path</code>
+<code> [1]      ⍝ Opens a key. This will fail if the key does not already exist.</code>
+<code> [2]      ⍝</code>
+<code> [3]      ⍝ See also: [`OpenKeyAndCreate`](#).</code>
+<code> [4]      ⍝</code>
+<code> [5]      ⍝ The optional left argument defaults to KEY_ALL_ACCESS which includes "Create").</code>
+<code> [6]      ⍝ Instead you can specify KEY_READ in case of lacking the rights to create anything.</code>
+<code> [7]   :Access Public Shared</code>
+<code> [8]   accessRights←{2=⎕NC ⍵:⍎⍵ ⋄ KEY_ALL_ACCESS}'accessRights'</code>
+<code> [9]   path←CheckPath path</code>
+<code> [10]  :If 'HKEY_'≡5↑path</code>
+<code> [11]      (HKEY subKey)←{a←⍵⍳'\' ⋄ ((a-1)↑⍵)(a↓⍵)}path</code>
+<code> [12]      HKEY←Get_HKEY_From HKEY</code>
+<code> [13]  :Else</code>
+<code class="emphasize">→[14]      HKEY←Get_HKEY_From'HKEY_CURRENT_USER'  ⍝ Default</code>
+<code> [15]  :EndIf</code>
+<code> [16]  '∆RegCreateKeyEx'⎕NA'I ADVAPI32.dll.C32|RegOpenKeyEx* U &lt;0T I I &gt;I'</code>
+<code> [17]  (rc handle)←∆RegCreateKeyEx HKEY subKey 0 accessRights 1</code>
+<code> [18]  ('WinReg error: opening Registry key failed with ',ConvertErrorCode rc)⎕SIGNAL 11/⍨~rc∊ERROR_SUCCESS,ERROR_FILE_NOT_FOUND</code>
+</div>
+<code class="header" id="listing_12">#.WinReg.WinReg.GetAllValueNames &mdash; 91%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←{verbose}GetAllValueNames y</code>
+<code> [1]      ⍝ This method gets all value names for a given subkey.</code>
+<code> [2]      ⍝</code>
+<code> [3]      ⍝ `r` is a vector with value names or, if the left argument is the string</code>
+<code> [4]      ⍝ "verbose" (default is `''`), a matrix with 2 columns:</code>
+<code> [5]      ⍝</code>
+<code> [6]      ⍝ |[;1]| names</code>
+<code> [7]      ⍝ |[;2]| data types</code>
+<code> [8]      ⍝ `⍵` can be one of:</code>
+<code> [9]      ⍝</code>
+<code> [10]     ⍝ * A string which is treated as a path (sub key)</code>
+<code> [11]     ⍝ * An integer which is treated as a handle</code>
+<code> [12]     ⍝</code>
+<code> [13]     ⍝ Note that for a default value a "\\" is returned as value name.</code>
+<code> [14]  :Access Public Shared</code>
+<code> [15]  verbose←{2=⎕NC ⍵:'verbose'≡⍎⍵ ⋄ 0}'verbose'</code>
+<code> [16]  :If (0=1↑0⍴y)∧1=≢y       ⍝ Is it a handle?</code>
+<code> [17]      yIsHandle←1</code>
+<code> [18]      handle←y</code>
+<code> [19]  :ElseIf (' '=1↑0⍴y)∧1=≡y  ⍝ Is it a path</code>
+<code> [20]      handle←OpenKey y</code>
+<code> [21]      'Could not access Windows Registry key'⎕SIGNAL 11/⍨0=handle</code>
+<code> [22]      yIsHandle←0</code>
+<code> [23]  :Else</code>
+<code> [24]      'WinReg error: invalid right argument'⎕SIGNAL 11</code>
+<code> [25]  :EndIf</code>
+<code> [26]  '∆RegEnumValue'⎕NA'I ADVAPI32|RegEnumValue* I I &gt;T[] =I I &gt;I &gt;T[] =I'</code>
+<code> [27]  (noofValues noofSubkeys keyLength dataLength)←4↑KeyInfo handle  ⍝ No. of values, no. of SubKeys, max name length, data length</code>
+<code> [28]  r←(noofValues,2)⍴' '</code>
+<code> [29]  :For i :In (⍳noofValues)-1</code>
+<code> [30]      (rc data length type)←4↑∆RegEnumValue handle,i,(keyLength+1),(keyLength+1),0 1,(dataLength+1),(dataLength+1)</code>
+<code> [31]      :If rc∊ERROR_SUCCESS,ERROR_MORE_DATA</code>
+<code> [32]          :If 0=length      ⍝ Then it is the default value</code>
+<code> [33]              r[i+1;]←'\'</code>
+<code> [34]          :Else</code>
+<code> [35]              r[i+1;]←(⊃↑/length data)type</code>
+<code> [36]          :EndIf</code>
+<code> [37]      :Else</code>
+<code class="emphasize">→[38]          Close(~yIsHandle)/handle</code>
+<code class="emphasize">→[39]          ('WinReg error! ',ConvertErrorCode rc)⎕SIGNAL 11</code>
+<code> [40]      :EndIf</code>
+<code> [41]  :EndFor</code>
+<code> [42]  Close(~yIsHandle)/handle</code>
+<code> [43]  :If ~verbose</code>
+<code> [44]      r←r[;1]</code>
+<code> [45]  :EndIf</code>
+</div>
+<code class="header" id="listing_13">#.WinReg.WinReg.CopyTree &mdash; 91%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  {r}←CopyTree(source destination)</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]       ⍝ Use this to copy a Registry Key from `source` to `destination`.</code>
+<code> [3]       ⍝</code>
+<code> [4]       ⍝ Note that this method needs at least Vista.</code>
+<code> [5]       ⍝</code>
+<code> [6]       ⍝ Both, `source` as well as `destination` can be one of:</code>
+<code> [7]       ⍝ * A path (sub key)</code>
+<code> [8]       ⍝ * A handle</code>
+<code> [9]   :If (0=1↑0⍴source)∧1=≢source       ⍝ Is it a handle?</code>
+<code> [10]      sourceIsHandle←1</code>
+<code> [11]      sourceHandle←source</code>
+<code> [12]  :ElseIf (' '=1↑0⍴source)∧1=≡source  ⍝ Is it a path</code>
+<code> [13]      sourceHandle←OpenKey source</code>
+<code> [14]      sourceIsHandle←0</code>
+<code> [15]  :Else</code>
+<code class="emphasize">→[16]      'WinReg error: invalid right argument ("source")'⎕SIGNAL 11</code>
+<code> [17]  :EndIf</code>
+<code> [18]  :If (0=1↑0⍴destination)∧1=≢destination       ⍝ Is it a handle?</code>
+<code> [19]      destinationIsHandle←1</code>
+<code> [20]      destinationHandle←destination</code>
+<code> [21]  :ElseIf (' '=1↑0⍴destination)∧1=≡destination  ⍝ Is it a path</code>
+<code> [22]      destinationHandle←OpenAndCreateKey destination</code>
+<code> [23]      destinationIsHandle←0</code>
+<code> [24]  :Else</code>
+<code class="emphasize">→[25]      'WinReg error: invalid right argument ("source")'⎕SIGNAL 11</code>
+<code> [26]  :EndIf</code>
+<code> [27]  :If ~destinationIsHandle</code>
+<code> [28]      'WinReg error: destination must not be a Registry value'⎕SIGNAL 11/⍨0≠##.WinReg.DoesValueExist destination</code>
+<code> [29]  :EndIf</code>
+<code> [30]  wv←GetVersion                 ⍝ Get the Windows version</code>
+<code> [31]  'WinReg error: "CopyTree" is not supported in this version of Windows'⎕SIGNAL 11/⍨6&gt;1⊃wv</code>
+<code> [32]  'WinReg error: recursive copy failed'⎕SIGNAL 11/⍨source≡destination</code>
+<code> [33]  '∆RegCopyTree'⎕NA'I ADVAPI32.dll.C32|RegCopyTree* U &lt;0T[] U'</code>
+<code> [34]  r←∆RegCopyTree sourceHandle''destinationHandle</code>
+<code> [35]  Close(~sourceIsHandle)/sourceHandle</code>
+<code> [36]  Close(~destinationIsHandle)/destinationHandle</code>
+</div>
+<code class="header" id="listing_14">#.WinReg.WinReg.PutValue &mdash; 92%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  {r}←PutValue y</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]      ⍝ Stores "data" under "path". Note that you cannot save a default value</code>
+<code> [3]      ⍝ with `PutValue` (=path ends with a backslash) because default values</code>
+<code> [4]      ⍝ **must** be of type REG_SZ. Therefore use `PutString` in order to set a</code>
+<code> [5]      ⍝ default value.\\</code>
+<code> [6]      ⍝ If path ends with a backslash, an exception is thrown.\\</code>
+<code> [7]      ⍝ Note that you can only save REG_DWORDs with PutValue, that is 32-bit integers.</code>
+<code> [8]   :Select ⊃≢y</code>
+<code> [9]   :Case 2</code>
+<code> [10]      yIsHandle←0</code>
+<code> [11]      (path data)←y</code>
+<code> [12]      'WinReg error: default values must be of type REG_SZ (string)'⎕SIGNAL 11/⍨'\'=¯1↑path</code>
+<code> [13]      (subKey value)←##.APLTreeUtils2.SplitPath path</code>
+<code> [14]      subKey←CheckPath subKey</code>
+<code> [15]      handle←OpenAndCreateKey subKey</code>
+<code> [16]  :Case 3</code>
+<code> [17]      yIsHandle←1</code>
+<code> [18]      (handle value data)←y</code>
+<code> [19]      'WinReg error: invalid right argument'⎕SIGNAL 11/⍨0≠1↑0⍴handle</code>
+<code> [20]  :Else</code>
+<code class="emphasize">→[21]      'WinReg error: invalid right argument'⎕SIGNAL 11</code>
+<code> [22]  :EndSelect</code>
+<code> [23]  data←,data</code>
+<code> [24]  :If (1≠≡data)∨1≠≢data←,data</code>
+<code> [25]      Close(~yIsHandle)/handle</code>
+<code> [26]      'WinReg error: data has invalid depth/shape'⎕SIGNAL 11</code>
+<code> [27]  :EndIf</code>
+<code> [28]  :If ∨/'-64'⍷1⊃'#'⎕WG'APLVersion'</code>
+<code> [29]      biggest←(2*63)-1</code>
+<code> [30]      smallest←-2*63</code>
+<code> [31]  :Else</code>
+<code class="emphasize">→[32]      biggest←(2*31)-1</code>
+<code class="emphasize">→[33]      smallest←-2*31</code>
+<code> [34]  :EndIf</code>
+<code> [35]  ⎕CT←1E¯15</code>
+<code> [36]  :If data&gt;biggest</code>
+<code> [37]      Close(~yIsHandle)/handle</code>
+<code> [38]      'WinReg error: data too large'⎕SIGNAL 11</code>
+<code> [39]  :EndIf</code>
+<code> [40]  :If data&lt;smallest</code>
+<code> [41]      Close(~yIsHandle)/handle</code>
+<code> [42]      'WinReg error: data too small'⎕SIGNAL 11</code>
+<code> [43]  :EndIf</code>
+<code> [44]  :If data≥¯2147483648</code>
+<code> [45]  :AndIf data≤2147483647</code>
+<code> [46]      '∆RegSetValueEx'⎕NA'I ADVAPI32.dll.C32|RegSetValueEx* I &lt;0T I I &lt;I4 I'</code>
+<code> [47]      rc←∆RegSetValueEx handle value 0 REG_DWORD data 4</code>
+<code> [48]  :Else</code>
+<code> [49]      '∆RegSetValueEx'⎕NA'I ADVAPI32.dll.C32|RegSetValueEx* I &lt;0T I8 I8 &lt;I8 I'</code>
+<code> [50]      rc←∆RegSetValueEx handle value 0 REG_QWORD data 8</code>
+<code> [51]  :EndIf</code>
+<code> [52]  Close(~yIsHandle)/handle</code>
+<code> [53]  r←⍬</code>
+</div>
+<code class="header" id="listing_15">#.WinReg.WinReg.DeleteValue &mdash; 92%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  {r}←DeleteValue y</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]       ⍝ Delete a value from the Windows Registry.</code>
+<code> [3]       ⍝</code>
+<code> [4]       ⍝ `⍵` can be one of:</code>
+<code> [5]       ⍝ |[1]| A full path (sub key + value name)</code>
+<code> [6]       ⍝ |[2]| A vector of length 2 with a handle in [1] and a value name in [2]</code>
+<code> [7]       ⍝ This method normally returns either ERROR_SUCCESS or ERROR_FILE_NOT_FOUND</code>
+<code> [8]       ⍝ in case the value did not exist from the start.</code>
+<code> [9]   :If 1≠≡y</code>
+<code> [10]  :AndIf (0=1↑0⍴1⊃,y)∧1=≢1⊃,y       ⍝ Is it a handle?</code>
+<code> [11]      yIsHandle←1</code>
+<code> [12]      (handle value)←y</code>
+<code> [13]  :ElseIf (' '=1↑0⍴y)∧1=≡y  ⍝ Is it a path</code>
+<code> [14]      (subKey value)←##.APLTreeUtils2.SplitPath y</code>
+<code> [15]      subKey←CheckPath subKey</code>
+<code> [16]      handle←OpenKey subKey</code>
+<code> [17]      yIsHandle←0</code>
+<code> [18]  :Else</code>
+<code class="emphasize">→[19]      'WinReg error: invalid right argument'⎕SIGNAL 11</code>
+<code> [20]  :EndIf</code>
+<code> [21]  '∆RegDeleteValue'⎕NA'I ADVAPI32.dll.C32|RegDeleteValue* U &lt;0T[]'</code>
+<code> [22]  r←∆RegDeleteValue handle value</code>
+<code> [23]  Close(~yIsHandle)/handle</code>
+</div>
+<code class="header" id="listing_16">#.WinReg.WinReg.DeleteSubKeyTree &mdash; 93%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  {r}←DeleteSubKeyTree y</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]       ⍝ Deletes a subkey "path", even if this subkeys holds values.</code>
+<code> [3]       ⍝</code>
+<code> [4]       ⍝ Any subkeys in "path" will be deleted as well.</code>
+<code> [5]       ⍝</code>
+<code> [6]       ⍝ Note that this methods needs at least Vista.</code>
+<code> [7]       ⍝</code>
+<code> [8]       ⍝ `⍵` can be one of:</code>
+<code> [9]       ⍝ * A path (sub key)</code>
+<code> [10]      ⍝ * A handle to a sub key</code>
+<code> [11]  'WinReg error: right argument must not be empty'⎕SIGNAL 11/⍨0=≢y</code>
+<code> [12]  :If 1≠≡y</code>
+<code> [13]  :AndIf (0=1↑0⍴1⊃,y)∧1=≢1⊃,y       ⍝ Is it a handle?</code>
+<code> [14]      yIsHandle←1</code>
+<code> [15]      handle←y</code>
+<code> [16]      subKey←''</code>
+<code> [17]  :ElseIf (' '=1↑0⍴y)∧1=≡y           ⍝ Is it a path?</code>
+<code> [18]      y←CheckPath y</code>
+<code> [19]      (path subKey)←##.APLTreeUtils2.SplitPath{⍵↓⍨-'\'=¯1↑⍵}y</code>
+<code> [20]      handle←OpenKey path</code>
+<code> [21]      yIsHandle←0</code>
+<code> [22]  :Else</code>
+<code class="emphasize">→[23]      'WinReg error: invalid right argument'⎕SIGNAL 11</code>
+<code> [24]  :EndIf</code>
+<code> [25]  '∆RegDeleteTree'⎕NA'I ADVAPI32.dll.C32|RegDeleteTree* U &lt;0T[]'</code>
+<code> [26]  r←∆RegDeleteTree handle subKey</code>
+<code> [27]  Close(~yIsHandle)/handle</code>
+</div>
+<code class="header" id="listing_17">#.WinReg.WinReg.DoesValueExist &mdash; 93%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  bool←DoesValueExist y</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]      ⍝ Checks if a value exists in the Registry.</code>
+<code> [3]      ⍝</code>
+<code> [4]      ⍝ `⍵` can be one of:</code>
+<code> [5]      ⍝ * Path (sub key)</code>
+<code> [6]      ⍝ * A handle to a sub key</code>
+<code> [7]   :If 1≠≡y</code>
+<code> [8]   :AndIf (0=1↑0⍴1⊃,y)∧1=≢1⊃,y       ⍝ Is it a handle?</code>
+<code> [9]       yIsHandle←1</code>
+<code> [10]      (handle value)←y</code>
+<code> [11]  :ElseIf (' '=1↑0⍴y)∧1=≡y  ⍝ Is it a path</code>
+<code> [12]      (subKey value)←##.APLTreeUtils2.SplitPath y</code>
+<code> [13]      subKey←CheckPath subKey</code>
+<code> [14]      handle←OpenKey subKey</code>
+<code> [15]      yIsHandle←0</code>
+<code> [16]  :Else</code>
+<code class="emphasize">→[17]      'WinReg error: invalid right argument'⎕SIGNAL 11</code>
+<code> [18]  :EndIf</code>
+<code> [19]  :If 0=handle ⍝ Then the sub key does not exist, let alone the value</code>
+<code> [20]      bool←0</code>
+<code> [21]  :Else</code>
+<code> [22]      names←GetAllValueNames handle</code>
+<code> [23]      bool←(⊂⎕C value)∊⎕C names</code>
+<code> [24]      Close(~yIsHandle)/handle</code>
+<code> [25]  :EndIf</code>
+</div>
+<code class="header" id="listing_18">#.WinReg.WinReg.GetTree &mdash; 94%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←{depth}GetTree key</code>
+<code> [1]      ⍝ Takes the name of a key (but no handle!) and returns a (possibly empty) matrix with:</code>
+<code> [2]      ⍝ |[;1]| depth</code>
+<code> [3]      ⍝ |[;2]| fully qualified name</code>
+<code> [4]      ⍝ Note that sub-keys end with a backslash.</code>
+<code> [5]      ⍝</code>
+<code> [6]      ⍝ See `GetTreeWithValues` if you need the data of the values, too.</code>
+<code> [7]   :Access Public Shared</code>
+<code> [8]   depth←{0=⎕NC ⍵:0 ⋄ ⍎⍵}'depth'</code>
+<code> [9]   :If (0=1↑0⍴key)∧1=≢key                   ⍝ Is it a valid handle?</code>
+<code> [10]      11 ⎕SIGNAL⍨'WinReg error: right argument is not a key name'</code>
+<code> [11]  :ElseIf (' '=1↑0⍴key)∧1=≡key              ⍝ Is it a path?</code>
+<code> [12]      handle←OpenKey key</code>
+<code> [13]  :Else</code>
+<code class="emphasize">→[14]      'WinReg error: invalid right argument'⎕SIGNAL 11</code>
+<code> [15]  :EndIf</code>
+<code> [16]  :If handle=0</code>
+<code> [17]      11 ⎕SIGNAL⍨'WinReg error: key does not exist'</code>
+<code> [18]  :Else</code>
+<code> [19]      r←1 2⍴depth(key,('\'≠¯1↑key)/'\')</code>
+<code> [20]      :If 0≠≢allValues←GetAllValueNames handle</code>
+<code> [21]          r⍪←(1+depth),[1.5](⊂key,('\'≠¯1↑key)/'\'),¨allValues</code>
+<code> [22]      :EndIf</code>
+<code> [23]      :If 0≠≢allSubKeys←GetAllSubKeyNames key</code>
+<code> [24]          :For thisSubKey :In allSubKeys</code>
+<code> [25]              :If 0≠≢buffer←(depth+1)GetTree key,(('\'≠¯1↑key)/'\'),thisSubKey</code>
+<code> [26]                  r⍪←buffer</code>
+<code> [27]              :EndIf</code>
+<code> [28]          :EndFor</code>
+<code> [29]      :EndIf</code>
+<code> [30]      Close handle</code>
+<code> [31]  :EndIf</code>
+</div>
+<code class="header" id="listing_19">#.WinReg.WinReg.DeleteSubKey &mdash; 94%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  {r}←DeleteSubKey y</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]       ⍝ Deletes a subkey "path", even if this subkeys holds values.</code>
+<code> [3]       ⍝</code>
+<code> [4]       ⍝ The subkey to be deleted must not have subkeys. (You can achieve</code>
+<code> [5]       ⍝ this with the `DeleteSubKeyTree` function, see there)</code>
+<code> [6]       ⍝</code>
+<code> [7]       ⍝ `⍵` can be one of:</code>
+<code> [8]       ⍝ * A string which is treated as a path (sub key)</code>
+<code> [9]       ⍝ * An integer which is treated as a handle</code>
+<code> [10]      ⍝</code>
+<code> [11]      ⍝ Note that for a default value a "\\" is returned as value name.</code>
+<code> [12]  :Access Public Shared</code>
+<code> [13]  :If (0=1↑0⍴y)∧1=≢y       ⍝ Is it a handle?</code>
+<code> [14]      handle←y</code>
+<code> [15]      subKey←''</code>
+<code> [16]      yIsHandle←1</code>
+<code> [17]  :ElseIf (' '=1↑0⍴y)∧1=≡y  ⍝ Is it a path</code>
+<code> [18]      y←CheckPath y</code>
+<code> [19]      (path subKey)←##.APLTreeUtils2.SplitPath y</code>
+<code> [20]      handle←OpenKey path</code>
+<code> [21]      yIsHandle←0</code>
+<code> [22]  :Else</code>
+<code class="emphasize">→[23]      'WinReg error: invalid right argument'⎕SIGNAL 11</code>
+<code> [24]  :EndIf</code>
+<code> [25]  :If 0=handle ⋄ r←0 ⋄ :Return ⋄ :EndIf  ⍝ handle is 0? Nothing to delete then.</code>
+<code> [26]  wv←GetVersion                 ⍝ Get the Windows version</code>
+<code> [27]  'WinReg error: "DeleteSubKey" is not supported in this version of Windows'⎕SIGNAL 11/⍨6&gt;1⊃wv</code>
+<code> [28]  '∆RegDeleteKey'⎕NA'I ADVAPI32.dll.C32|RegDeleteKey* U &lt;0T[]'</code>
+<code> [29]  r←∆RegDeleteKey handle subKey</code>
+<code> [30]  Close(~yIsHandle)/handle</code>
+</div>
+<code class="header" id="listing_20">#.WinReg.WinReg.PutBinary &mdash; 95%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  {r}←PutBinary y</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]      ⍝ Stores binary "data".</code>
+<code> [3]      ⍝</code>
+<code> [4]      ⍝ `⍵` may be one of:</code>
+<code> [5]      ⍝ * A vector of length 2 with the full path (sub-key + value name) in</code>
+<code> [6]      ⍝   the first item and the data in the second item.</code>
+<code> [7]      ⍝ * A vector of length 3 with a handle in [1], the value name in [2]</code>
+<code> [8]      ⍝   and the data in [3].</code>
+<code> [9]      ⍝</code>
+<code> [10]     ⍝ Note that you cannot save a default</code>
+<code> [11]     ⍝ value with `PutBinary` (=path ends with a backslash) because default</code>
+<code> [12]     ⍝ values *must* be of type REG_SZ. Therefore use `PutString` in order to</code>
+<code> [13]     ⍝ set a default value.</code>
+<code> [14]     ⍝</code>
+<code> [15]     ⍝ If path ends with a backslash, an exception is thrown.</code>
+<code> [16]     ⍝</code>
+<code> [17]     ⍝ Note that for binary you must specify Integer (¯128 to 128).</code>
+<code> [18]  :Select ⊃≢y</code>
+<code> [19]  :Case 2</code>
+<code> [20]      yIsHandle←0</code>
+<code> [21]      (path data)←y</code>
+<code> [22]      'WinReg error: default values must be of type REG_SZ (string)'⎕SIGNAL 11/⍨'\'=¯1↑path</code>
+<code> [23]      (subKey value)←##.APLTreeUtils2.SplitPath path</code>
+<code> [24]      subKey←CheckPath subKey</code>
+<code> [25]      handle←OpenAndCreateKey subKey</code>
+<code> [26]  :Case 3</code>
+<code> [27]      yIsHandle←1</code>
+<code> [28]      (handle value data)←y</code>
+<code> [29]      'WinReg error: default values must be of type REG_SZ (string)'⎕SIGNAL 11/⍨(,'\')≡,value</code>
+<code> [30]      'WinReg error: invalid right argument'⎕SIGNAL 11/⍨0≠1↑0⍴handle</code>
+<code> [31]  :Else</code>
+<code class="emphasize">→[32]      'WinReg error: invalid right argument'⎕SIGNAL 11</code>
+<code> [33]  :EndSelect</code>
+<code> [34]  data←,data</code>
+<code> [35]  'WinReg error: invalid data for "Binary"'⎕SIGNAL 11/⍨∨/~data∊¯129+⍳256</code>
+<code> [36]  '∆RegSetValueEx'⎕NA'I ADVAPI32.dll.C32|RegSetValueEx* I &lt;0T I I &lt;I1[] I'</code>
+<code> [37]  _←∆RegSetValueEx handle value 0 REG_BINARY data(≢data)</code>
+<code> [38]  Close(~yIsHandle)/handle</code>
+<code> [39]  r←⍬</code>
+</div>
+<code class="header" id="listing_21">#.WinReg.WinReg.KeyInfo &mdash; 95%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←KeyInfo y</code>
+<code> [1]      ⍝ Returns a vector with information about the Key (not Value!) in question.</code>
+<code> [2]      ⍝</code>
+<code> [3]      ⍝ 1. No. of values</code>
+<code> [4]      ⍝ 1. No. of subkeys</code>
+<code> [5]      ⍝ 1. Largest length of all value names (without \\n)</code>
+<code> [6]      ⍝ 1. Largest length of value data (without \\n)</code>
+<code> [7]      ⍝</code>
+<code> [8]      ⍝ `y` can be one of:</code>
+<code> [9]      ⍝ * A handle</code>
+<code> [10]     ⍝ * A path (sub key)</code>
+<code> [11]  :Access Public Shared</code>
+<code> [12]  :If (0=1↑0⍴y)∧1=≢y       ⍝ Is it a handle?</code>
+<code> [13]      yIsHandle←1</code>
+<code> [14]      handle←y</code>
+<code> [15]  :ElseIf (' '=1↑0⍴y)∧1=≡y  ⍝ Is it a path</code>
+<code> [16]      handle←OpenKey y</code>
+<code> [17]      yIsHandle←0</code>
+<code> [18]  :Else</code>
+<code class="emphasize">→[19]      'WinReg error: invalid right argument'⎕SIGNAL 11</code>
+<code> [20]  :EndIf</code>
+<code> [21]  '∆RegQueryInfoKey'⎕NA'I ADVAPI32|RegQueryInfoKey* I &gt;T[] =I I &gt;I &gt;I &gt;I &gt;I &gt;I &gt;I &gt;I &gt;{U U}'</code>
+<code> [22]  buffer←∆RegQueryInfoKey handle 0 0 0 1 1 1 1 0 0 0 0</code>
+<code> [23]  rc←1⊃buffer</code>
+<code> [24]  :If 0=rc</code>
+<code> [25]      noofValues←7⊃buffer</code>
+<code> [26]      noofSubKeys←4⊃buffer</code>
+<code> [27]      maxNameLength←8⊃buffer</code>
+<code> [28]      maxValueLength←9⊃buffer</code>
+<code> [29]      r←noofValues noofSubKeys maxNameLength maxValueLength</code>
+<code> [30]  :Else</code>
+<code> [31]      Close(~yIsHandle)/handle</code>
+<code> [32]      ('WinReg error: ',ConvertErrorCode rc)⎕SIGNAL 11</code>
+<code> [33]  :EndIf</code>
+<code> [34]  Close(~yIsHandle)/handle</code>
+</div>
+<code class="header" id="listing_22">#.WinReg.WinReg.PutString &mdash; 97%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  {r}←{type}PutString y</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]      ⍝ `⍵` can be either a vector of length two or three:</code>
+<code> [3]      ⍝ If length 2:</code>
+<code> [4]      ⍝   [1] path (subkey + value name)</code>
+<code> [5]      ⍝   [2] data to be saved</code>
+<code> [6]      ⍝ If length 3:</code>
+<code> [7]      ⍝   [1] handle to the sub key</code>
+<code> [8]      ⍝   [2] value name</code>
+<code> [9]      ⍝   [3] data to be saved</code>
+<code> [10]     ⍝ Stores "data" under `¯1↓y`. If "path" ends with a "\\" char, "data"</code>
+<code> [11]     ⍝ is saved as the default value of "path"; data type is always "REG_SZ" then.</code>
+<code> [12]     ⍝</code>
+<code> [13]     ⍝ Note that type defaults to "REG_SZ" except when "data" is nested, then</code>
+<code> [14]     ⍝ the default is "REG_MULTI_SZ.</code>
+<code> [15]     ⍝</code>
+<code> [16]     ⍝ You can set "type" to one of: REG_SZ, REG_EXPAND_SZ, REG_MULTI_SZ.</code>
+<code> [17]  :Select ⊃≢y</code>
+<code> [18]  :Case 2</code>
+<code> [19]      yIsHandle←0</code>
+<code> [20]      (path data)←y</code>
+<code> [21]      (subKey value)←{⍵{((-⍵)↓⍺)((-⍵-1)↑⍺)}'\'⍳⍨⌽⍵}path</code>
+<code> [22]      subKey←CheckPath subKey</code>
+<code> [23]      handle←OpenAndCreateKey subKey</code>
+<code> [24]  :Case 3</code>
+<code> [25]      yIsHandle←1</code>
+<code> [26]      (handle value data)←y</code>
+<code> [27]      'WinReg error: invalid right argument'⎕SIGNAL 11/⍨0≠1↑0⍴handle</code>
+<code> [28]  :Else</code>
+<code class="emphasize">→[29]      'WinReg error: invalid right argument'⎕SIGNAL 11</code>
+<code> [30]  :EndSelect</code>
+<code> [31]  data←,data</code>
+<code> [32]  'WinReg error: invalid "value"'⎕SIGNAL 11/⍨' '≠1↑0⍴value</code>
+<code> [33]  type←data{2=⎕NC ⍵:⍎⍵ ⋄ (1+0 1∊⍨≡⍺)⊃REG_MULTI_SZ REG_SZ}'type'</code>
+<code> [34]  :If type=REG_MULTI_SZ</code>
+<code> [35]      'WinReg error: invalid "data"'⎕SIGNAL 11/⍨0∊{⊃' '=1↑0⍴⍵}¨data</code>
+<code> [36]  :Else</code>
+<code> [37]      'WinReg error: invalid "data"'⎕SIGNAL 11/⍨' '≠1↑0⍴data</code>
+<code> [38]  :EndIf</code>
+<code> [39]  :If type=REG_MULTI_SZ</code>
+<code> [40]      data←{0 1∊⍨≡⍵:⍵ ⋄ 0=≢⍵:'' ⋄ (⊃,/⍵,¨NULL),NULL}data</code>
+<code> [41]  :Else</code>
+<code> [42]      data←data,{NULL=⍵:'' ⋄ NULL}¯1↑data</code>
+<code> [43]  :EndIf</code>
+<code> [44]  'WinReg error: invalid data type - must be one of REG_SZ,REG_MULTI_SZ,REG_EXPAND_SZ'⎕SIGNAL 11/⍨~type∊REG_SZ,REG_MULTI_SZ,REG_EXPAND_SZ</code>
+<code> [45]  '∆RegSetValueEx'⎕NA'I ADVAPI32.dll.C32|RegSetValueEx* I &lt;0T I I &lt;T[] I'</code>
+<code> [46]  :If yIsHandle</code>
+<code> [47]  :AndIf (,'\')≡,value</code>
+<code> [48]      rc←∆RegSetValueEx handle'' 0 type data(2×≢data)</code>
+<code> [49]  :Else</code>
+<code> [50]      rc←∆RegSetValueEx handle value 0 type data(2×≢data)</code>
+<code> [51]  :EndIf</code>
+<code> [52]  ('WinReg error! ',ConvertErrorCode rc)⎕SIGNAL 11/⍨ERROR_SUCCESS≠rc</code>
+<code> [53]  Close(~yIsHandle)/handle</code>
+<code> [54]  r←⍬</code>
+</div>
+<code class="header" id="listing_23">#.WinReg.WinReg.History &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  History</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]        ⍝ * 6.0.0 ⋄ 2024-11-30</code>
+<code> [3]        ⍝   * SYNTAX CHANGE: `Version` now returns just a character vector:</code>
+<code> [4]        ⍝     the version number according to the package config file</code>
+<code> [5]        ⍝   * `Make` polished</code>
+<code> [6]        ⍝   * Packages updated</code>
+<code> [7]        ⍝ * 5.1.0 ⋄ 2024-11-30</code>
+<code> [8]        ⍝   * Packages updated</code>
+<code> [9]        ⍝ * 5.0.4 ⋄ 2022-08-05</code>
+<code> [10]       ⍝   * Bug fix in `GetValue`</code>
+<code> [11]       ⍝ * 5.0.3 ⋄ 2022-08-04</code>
+<code> [12]       ⍝   * "Author" information updated</code>
+<code> [13]       ⍝   * New "Make"</code>
+<code> [14]       ⍝   * Packages udated</code>
+<code> [15]       ⍝ * 5.0.2 ⋄ 2021-03-02</code>
+<code> [16]       ⍝   * Package config corrected</code>
+<code> [17]       ⍝ * 5.0.1</code>
+<code> [18]       ⍝   * Naming problem fixed caused by move to `APLTreeUtils2`</code>
+<code> [19]       ⍝ * 5.0.0</code>
+<code> [20]       ⍝   * BREAKIN CHANGES:</code>
+<code> [21]       ⍝     * Requires the class `APLTreeUtils2`</code>
+<code> [22]       ⍝     * Requires Dyalog 18.0 or better</code>
+<code> [23]       ⍝     * Is delivered as a Tatin package</code>
+<code> [24]       ⍝   * Internal changes</code>
+<code> [25]       ⍝     * Does not `:Include APLTreeUtils` anymore</code>
+<code> [26]       ⍝     * Uses `⎕ML←1`</code>
+<code> [27]       ⍝\\</code>
+<code> [28]       ⍝ For information regarding older versions see &lt;https://github.com/aplteam/WinReg/releases&gt;</code>
+</div>
+<code class="header" id="listing_24">#.WinReg.WinReg.ListError &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code> r←ListError</code>
+<code> [1]  :Access Public Shared</code>
+<code> [2]       ⍝ List all vars starting with "ERROR"</code>
+<code> [3]  r←List'ERROR_'</code>
+<code> [4]  r←r,[1.5]⍎¨r</code>
+</div>
+<code class="header" id="listing_25">#.WinReg.WinReg.ListReg &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code> r←ListReg</code>
+<code> [1]  :Access Public Shared</code>
+<code> [2]       ⍝ List all vars starting with "REG\_"</code>
+<code> [3]  r←List'REG_'</code>
+<code> [4]  r←r,[1.5]⍎¨r</code>
+</div>
+<code class="header" id="listing_26">#.WinReg.WinReg.GetAllValues &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code> r←GetAllValues y</code>
+<code> [1]  :Access Public Shared</code>
+<code> [2]       ⍝⍝  ⍝TODO⍝  : delete in the next major version</code>
+<code> [3]       ⍝ DEPRECATED</code>
+<code> [4]       ⍝ This was a misnomer from the start.</code>
+<code> [5]       ⍝</code>
+<code> [6]       ⍝ This method will disappear with version 3.0</code>
+<code> [7]  r←GetAllNamesAndValues y</code>
+</div>
+<code class="header" id="listing_27">#.WinReg.WinReg.DoesKeyExist &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  bool←DoesKeyExist path</code>
+<code> [1]   :Access Public Shared</code>
+<code> [2]      ⍝ Checks if a given Registry key exists.</code>
+<code> [3]      ⍝</code>
+<code> [4]      ⍝ Note that you cannot pass a handle as right argument because</code>
+<code> [5]      ⍝ that makes no sense: if there is a handle the sub key **must** exist.</code>
+<code> [6]   'WinReg error: right argument must not be empty'⎕SIGNAL 11/⍨0=≢path</code>
+<code> [7]   handle←OpenKey path</code>
+<code> [8]   bool←handle≠0</code>
+<code> [9]   Close handle</code>
+</div>
+<code class="header" id="listing_28">#.WinReg.WinReg.GetTypeAsStringFrom &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code> r←GetTypeAsStringFrom value</code>
+<code> [1]     ⍝ Use this to convert a value like 3 to REG_BINARY or 'REG_BINARY'</code>
+<code> [2]     ⍝ into 3. Specify an empty argument to get a matrix with all possible</code>
+<code> [3]     ⍝ names and their values.</code>
+<code> [4]  :Access Public Shared</code>
+<code> [5]  'WinReg error: invalid right argument'⎕SIGNAL 11/⍨~0 1∊⍨≡value</code>
+<code> [6]  l←GetAllTypes ⍬            ⍝ Get list with all REG fields</code>
+<code> [7]  r←l GetAsString value</code>
+</div>
+<code class="header" id="listing_29">#.WinReg.WinReg.GetErrorAsStringFrom &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code> r←GetErrorAsStringFrom value</code>
+<code> [1]     ⍝ Use this to convert a value like 8 to "ERROR_NOT_ENOUGH_MEMORY".</code>
+<code> [2]     ⍝</code>
+<code> [3]     ⍝ Specify an empty argument to get a matrix with all possible</code>
+<code> [4]     ⍝ names and their values.</code>
+<code> [5]  :Access Public Shared</code>
+<code> [6]  'WinReg error: invalid right argument'⎕SIGNAL 11/⍨~0 1∊⍨≡value</code>
+<code> [7]  l←GetAll'ERROR'               ⍝ Get list with all errors</code>
+<code> [8]  r←l GetAsString value</code>
+</div>
+<code class="header" id="listing_30">#.WinReg.WinReg.Close &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code> {r}←Close handle</code>
+<code> [1]  :Access Public Shared</code>
+<code> [2]  r←⍬</code>
+<code> [3]  :If 0≠≢handle</code>
+<code> [4]      ⎕NA'U ADVAPI32.dll.C32|RegCloseKey U'</code>
+<code> [5]      _←RegCloseKey¨handle</code>
+<code> [6]  :EndIf</code>
+</div>
+<code class="header" id="listing_31">#.WinReg.WinReg.GetDyalogRegPath &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code> r←GetDyalogRegPath aplVersion</code>
+<code> [1]     ⍝ Returns the full Registry key for `aplVersion` which defaults to `'#' ⎕WG 'APLVersion'` when empty.</code>
+<code> [2]  :Access Public Shared</code>
+<code> [3]  r←'HKEY_CURRENT_USER\Software\Dyalog\Dyalog APL/W'</code>
+<code> [4]  v←{0=≢⍵:'#'⎕WG'APLVersion' ⋄ ⍵}aplVersion</code>
+<code> [5]  r,←(0&lt;+/'-64'⍷⊃v)/'-64'</code>
+<code> [6]  r,←' ',⊃{⍺,'.',⍵}/2↑'.'##.APLTreeUtils2.Split 2⊃v</code>
+<code> [7]  r,←(80=⎕DR' ')/' Unicode'</code>
+<code> [8]      ⍝Done</code>
+</div>
+<code class="header" id="listing_32">#.WinReg.WinReg.GetVersion &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code> r←GetVersion</code>
+<code> [1]    ⍝ Gets the OS version.</code>
+<code> [2]    ⍝ r[0] = Major version</code>
+<code> [3]    ⍝ r[1] = Minor version</code>
+<code> [4]    ⍝ r[2] = BuildNumber</code>
+<code> [5]  '∆GetVersion'⎕NA'I KERNEL32|GetVersionExA ={I I I I I T[128]}' ⍝ Don't convert this to Unicode - no point!</code>
+<code> [6]  OSVERSIONINFO←148 0 0 0 0(128⍴NULL)</code>
+<code> [7]  (rc r)←∆GetVersion⊂OSVERSIONINFO</code>
+<code> [8]  r←3↑1↓r</code>
+</div>
+<code class="header" id="listing_33">#.WinReg.WinReg.ExpandEnv &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code> R←ExpandEnv Y</code>
+<code> [1]     ⍝ If Y does not contain any "%", Y is passed untouched.</code>
+<code> [2]     ⍝ In case Y is empty R is empty as well.</code>
+<code> [3]     ⍝ Example:</code>
+<code> [4]     ⍝ &lt;pre&gt;'C:\Windows\MyDir' ←→ ExpandEnv '%WinDir%\MyDir'&lt;/pre&gt;</code>
+<code> [5]  :If '%'∊R←Y</code>
+<code> [6]      'ExpandEnvironmentStrings'⎕NA'I4 KERNEL32.C32|ExpandEnvironmentStrings* &lt;0T &gt;0T I4'</code>
+<code> [7]      R←2⊃ExpandEnvironmentStrings(Y 2048 2048)</code>
+<code> [8]  :EndIf</code>
+</div>
+<code class="header" id="listing_34">#.WinReg.WinReg.GetAsString &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code> r←mat GetAsString value</code>
+<code> [1]     ⍝ Sub fns of GetErrorAsStringFrom and GetTypeAsStringFrom</code>
+<code> [2]  :If 0=≢value</code>
+<code> [3]      r←⍉mat,[0.5]⍎¨mat             ⍝ Build matrix with cols "Name" and "Value"</code>
+<code> [4]  :Else</code>
+<code> [5]      values←⍎¨l                ⍝ Get the values</code>
+<code> [6]      r←{1=≢⍵:⊃⍵ ⋄ ⍵}(mat,⊂'?')[values⍳value]</code>
+<code> [7]  :EndIf</code>
+</div>
+<code class="header" id="listing_35">#.WinReg.WinReg.ConvertErrorCode &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code>  r←ConvertErrorCode rc</code>
+<code> [1]      ⍝ rc is a number representing an error code.</code>
+<code> [2]      ⍝ Returns either the name of the constant and/or the number as text.</code>
+<code> [3]      ⍝ Examples:</code>
+<code> [4]      ⍝ 'ERROR_ACCESS_DENIED (RC=5)' ←→ 'E' ConvertErrorCode 5</code>
+<code> [5]      ⍝ '(RC=123)' ←→ 'E' ConvertErrorCode ¯123</code>
+<code> [6]   :If 0=rc</code>
+<code> [7]       r←''</code>
+<code> [8]   :Else</code>
+<code> [9]       all←ListError</code>
+<code> [10]      :If rc∊all[;2]</code>
+<code> [11]          r←1⊃all[all[;2]⍳rc;]</code>
+<code> [12]      :Else</code>
+<code> [13]          r←'RC=',⍕rc</code>
+<code> [14]      :EndIf</code>
+<code> [15]  :EndIf</code>
+</div>
+<code class="header" id="listing_36">#.WinReg.WinReg.List &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block"><code> r←List string</code>
+<code> [1]       ⍝ List all vars starting with "string"</code>
+<code> [2]  r←(⊃string)⎕NL-2</code>
+<code> [3]  r←string{⍵⌿⍨((≢⍺)↑[2]↑⍵)∧.=⍺}r</code>
+</div>
+<code class="header" id="listing_37">#.WinReg.WinReg.default &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block missing">Could not get canonical representation.</div>
+<code class="header" id="listing_38">#.WinReg.WinReg.verbose &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block missing">Could not get canonical representation.</div>
+<code class="header" id="listing_39">#.WinReg.WinReg.depth &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block missing">Could not get canonical representation.</div>
+<code class="header" id="listing_40">#.WinReg.WinReg.accessRights &mdash; 100%<a class="float-right no-print no-underline top-links" href="#top" title="Go to the top of the document">&#8607;</a><a  class="float-right no-print no-underline top-links" href="#partly-covered" title="Go to the beginning of 'Partly-covered'">↑</a></code>
+<div class="code-block missing">Could not get canonical representation.</div>
+<div id="footer">
+<hr>
+<p>Created by "CodeCoverage" version 0.10.7+52 from 2024-06-05</p>
+</div>
 
 </body>
 </html>

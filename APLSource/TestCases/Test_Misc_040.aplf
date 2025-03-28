@@ -1,0 +1,11 @@
+ R←Test_Misc_040(stopFlag batchFlag);⎕TRAP;version
+⍝ Exercise `Version`
+ R←T._Failed
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+
+ version←##.WinReg.Version
+ →T.PassesIf 1=≡version
+ →T.PassesIf' '=1↑0⍴version
+ →T.PassesIf∧/⎕D∊⍨{⍵↑⍨¯1+⍵⍳'-'}version~'+.'
+
+ R←T._OK
